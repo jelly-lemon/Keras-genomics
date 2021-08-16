@@ -13,7 +13,7 @@ try:
 	from hyperopt import hp
 	from hyperopt.pyll.stochastic import sample
 except ImportError:
-	print "In order to achieve operational capability, this programme requires hyperopt to be installed (pip install hyperopt), unless you make get_params() use something else."
+	print("In order to achieve operational capability, this programme requires hyperopt to be installed (pip install hyperopt), unless you make get_params() use something else.")
 	
 #	
 
@@ -51,7 +51,7 @@ def train_and_eval_sklearn_classifier( clf, data ):
 	auc = AUC( y_train, p )
 	acc = accuracy( y_train, np.round( p ))
 
-	print "\n# training | log loss: {:.2%}, AUC: {:.2%}, accuracy: {:.2%}".format( ll, auc, acc )
+	print("\n# training | log loss: {:.2%}, AUC: {:.2%}, accuracy: {:.2%}".format( ll, auc, acc ))
 
 	#
 
@@ -64,7 +64,7 @@ def train_and_eval_sklearn_classifier( clf, data ):
 	auc = AUC( y_test, p )
 	acc = accuracy( y_test, np.round( p ))
 
-	print "# testing  | log loss: {:.2%}, AUC: {:.2%}, accuracy: {:.2%}".format( ll, auc, acc )	
+	print("# testing  | log loss: {:.2%}, AUC: {:.2%}, accuracy: {:.2%}".format( ll, auc, acc ))
 	
 	#return { 'loss': 1 - auc, 'log_loss': ll, 'auc': auc }
 	return { 'loss': ll, 'log_loss': ll, 'auc': auc }
@@ -88,7 +88,7 @@ def train_and_eval_sklearn_regressor( clf, data ):
 	mae = MAE( y_train, p )
 
 
-	print "\n# training | RMSE: {:.4f}, MAE: {:.4f}".format( rmse, mae )
+	print("\n# training | RMSE: {:.4f}, MAE: {:.4f}".format( rmse, mae ))
 
 	#
 
@@ -98,7 +98,7 @@ def train_and_eval_sklearn_regressor( clf, data ):
 	rmse = sqrt( mse )
 	mae = MAE( y_test, p )
 
-	print "# testing  | RMSE: {:.4f}, MAE: {:.4f}".format( rmse, mae )	
+	print("# testing  | RMSE: {:.4f}, MAE: {:.4f}".format( rmse, mae ))
 	
 	return { 'loss': rmse, 'rmse': rmse, 'mae': mae }
 

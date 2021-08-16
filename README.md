@@ -1,3 +1,14 @@
+# Python 环境
+tensorflow 2.1.4
+
+sklearn 0.24.2
+
+hyperopt 0.2.5	选择超参数
+
+# 文件\目录说明
+*.fa：FASTA 文件
+
+
 A [Keras](https://keras.io/)-based deep learning platform to perform hyper-parameter tuning, training and prediction on genomics data.
 
 Table of contents
@@ -22,15 +33,28 @@ The latest version has gone through major refactorization that changes the inter
 User needs to prepare [sequence file](https://github.com/gifford-lab/Keras-genomics/blob/master/example/train.fa) in [FASTA](https://en.wikipedia.org/wiki/FASTA_format) format and [target file](https://github.com/gifford-lab/Keras-genomics/blob/master/example/train.target) for training,validation and test set. Refer to the [toy data](https://github.com/gifford-lab/Keras-genomics/blob/master/example/) we provided for more examples.
 
 Then run the following to embed each set into HDF5 format.
+
+
 ```
 paste - - -d' ' < FASTA_FILE > tmp.tsv
 python $REPO_HOME/embedH5.py tmp.tsv TARGET_FILE DATA_TOPDIR/FILE_NAME  -b BATCHSIZE
 ```
-+ `FASTA_FILE`: sequence in FASTA format 
+
+
++ `FASTA_FILE`: sequence in FASTA format
+原始数据文件
+
 + `TARGET_FILE`: targets (labels or real values) corresponding to the sequences (in the same order)
-+ `DATA_TOPDIR`: the *absolute path* of the output directory 
+标签文件  
+
++ `DATA_TOPDIR`: the *absolute path* of the output directory  
+
 + `FILE_NAME`: 'train.h5.batch','valid.h5.batch',or 'test.h5.batch' for training, validation and test set.
+文件名  
+
 + `BATCHSIZE`: optional and the default is 5000. Save every this number of samples to a separate file `DATA_CODE.h5.batchX` where X is the corresponding batch index.
+批大小
+
 
 ## Model preparation
 Change the `model` function in the [template](https://github.com/gifford-lab/Keras-genomics/blob/master/example/model.py) provided to implement your favorite network. Refer to [here](https://github.com/zygmuntz/hyperband/blob/master/defs/keras_mlp.py) for examples of how to specifying hyper-parameters to tune.
