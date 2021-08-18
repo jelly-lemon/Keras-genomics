@@ -1,12 +1,15 @@
 from __future__ import print_function
-import time,numpy as np,sys,h5py,cPickle,argparse,subprocess
-from hyperopt import Trials, STATUS_OK, tpe
-from hyperas import optim
+
+import os
+import shutil
+import time,numpy as np,sys,h5py,argparse,subprocess
+# python2 中叫 cPickle
+import pickle as cPickle
 from os.path import join,dirname,basename,exists,realpath
 from os import system,chdir,getcwd,makedirs
-from keras.models import model_from_json
+from tensorflow.keras.models import model_from_json
 from tempfile import mkdtemp
-from keras.callbacks import ModelCheckpoint,EarlyStopping
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from sklearn.metrics import accuracy_score,roc_auc_score
 from pprint import pprint
 
@@ -19,10 +22,10 @@ def parse_args():
     parser.add_argument("-y", "--hyper", dest="hyper", default=False, action='store_true',help="Perform hyper-parameter tuning")
     parser.add_argument("-t", "--train", dest="train", default=False, action='store_true',help="Train on the training set with the best hyper-params")
     parser.add_argument("-e", "--eval", dest="eval", default=False, action='store_true',help="Evaluate the model on the test set")
-    parser.add_argument("-p", "--predit", dest="infile", default='', help="Path to data to predict on (up till batch number)")
-    parser.add_argument("-d", "--topdir", dest="topdir", help="The data directory")
+    parser.add_argument("-p", "--predit", dest="infile", default='', help="Path to batch_file to predict on (up till batch number)")
+    parser.add_argument("-d", "--topdir", dest="topdir", help="The batch_file directory")
     parser.add_argument("-m", "--model", dest="model", help="Path to the model file")
-    parser.add_argument("-o", "--outdir", dest="outdir",default='',help="Output directory for the prediction on new data")
+    parser.add_argument("-o", "--outdir", dest="outdir",default='',help="Output directory for the prediction on new batch_file")
     parser.add_argument("-hi", "--hyperiter", dest="hyperiter", default=20, type=int, help="Num of max iteration for each hyper-param config")
     parser.add_argument("-te", "--trainepoch", default=20, type=int, help="The number of epochs to train for")
     parser.add_argument("-pa", "--patience", default=10, type=int, help="number of epochs with no improvement after which training will be stopped.")
@@ -31,10 +34,10 @@ def parse_args():
     parser.add_argument("-l", "--lweightfile", default=None, help="Weight file after training")
     parser.add_argument("-r", "--retrain", default=None, help="codename for the retrain run")
     parser.add_argument("-rw", "--rweightfile", default='', help="Weight file to load for retraining")
-    parser.add_argument("-dm", "--datamode", default='memory', help="whether to load data into memory ('memory') or using a generator('generator')")
+    parser.add_argument("-dm", "--datamode", default='memory', help="whether to load batch_file into memory ('memory') or using a generator('generator')")
     parser.add_argument("-ei", "--evalidx", dest='evalidx', default=0, type=int, help="which output neuron (0-based) to calculate 2-class auROC for")
-    parser.add_argument("--epochratio", default=1, type=float, help="when training with data generator, optionally shrink each epoch size by this factor to enable more frequen evaluation on the valid set")
-    parser.add_argument("-shuf", default=1, type=int, help="whether to shuffle the data at the begining of each epoch (1/0)")
+    parser.add_argument("--epochratio", default=1, type=float, help="when training with batch_file generator, optionally shrink each epoch size by this factor to enable more frequen evaluation on the valid set")
+    parser.add_argument("-shuf", default=1, type=int, help="whether to shuffle the batch_file at the begining of each epoch (1/0)")
 
     return parser.parse_args()
 
@@ -75,6 +78,7 @@ def load_model(weightfile2load=None):
 
 
 if __name__ == "__main__":
+    os.system("chcp 65001")
 
     args = parse_args()
     model_arch = basename(args.model)
@@ -90,8 +94,11 @@ if __name__ == "__main__":
     last_weight_file = join(outdir,model_arch+'_lastmodel_weights.h5') if args.lweightfile is None else args.lweightfile
     evalout = join(outdir,model_arch+'_eval.txt')
 
-    tmpdir = mkdtemp()
-    system(' '.join(['cp', args.model, join(tmpdir,'mymodel.py')]))
+    tmpdir = "./tmp"
+    shutil.rmtree(tmpdir)
+    os.makedirs(tmpdir)
+    #system(' '.join(['cp', args.model, join(tmpdir,'mymodel.py')]))
+    shutil.copy(args.model, './tmp/mymodel.py')
     sys.path.append(tmpdir)
     import mymodel
     hb = Hyperband( mymodel.get_params, mymodel.try_params,  args.topdir, max_iter=args.hyperiter, datamode=args.datamode)
@@ -143,7 +150,7 @@ if __name__ == "__main__":
         testbatch_num, _ = hb.probedata(join(args.topdir, 'test.h5.batch'))
         test_generator = hb.BatchGenerator(None, join(args.topdir, 'test.h5.batch'), shuf=args.shuf==1)
         for _ in range(testbatch_num):
-            X_test, Y_test = test_generator.next()
+            X_test, Y_test = next(test_generator)
             t_pred = model.predict(X_test)
             pred_for_evalidx += [x[args.evalidx] for x in t_pred]
             pred_bin += [np.argmax(x) for x in t_pred]
@@ -157,7 +164,7 @@ if __name__ == "__main__":
         np.savetxt(evalout, [t_auc, t_acc])
 
     if args.infile != '':
-        ## Predict on new data
+        ## Predict on new batch_file
         model = load_model(weight_file)
 
         predict_batch_num, _ = hb.probedata(args.infile)
@@ -166,7 +173,7 @@ if __name__ == "__main__":
         outdir = join(dirname(args.infile), '.'.join(['pred', model_arch, basename(args.infile)])) if args.outdir == '' else args.outdir
         if exists(outdir):
             print('Output directory', outdir, 'exists! Overwrite? (yes/no)')
-            if raw_input().lower() == 'yes':
+            if input().lower() == 'yes':
                 system('rm -r ' + outdir)
             else:
                 print('Quit predicting!')
@@ -174,7 +181,7 @@ if __name__ == "__main__":
 
         for i in range(predict_batch_num):
             print('predict on batch', i)
-            batch_data = h5py.File(args.infile+str(i+1), 'r')['data']
+            batch_data = h5py.File(args.infile+str(i+1), 'r')['batch_file']
 
             time1 = time.time()
             pred = model.predict(batch_data)
@@ -186,5 +193,5 @@ if __name__ == "__main__":
             for label_dim in range(pred.shape[1]):
                 with open(join(t_outdir, str(label_dim)+'.pkl'), 'wb') as f:
                     cPickle.dump(pred[:, label_dim], f)
-
-    system('rm -r ' + tmpdir)
+    #system('rm -r ' + tmpdir)
+    shutil.rmtree(tmpdir)

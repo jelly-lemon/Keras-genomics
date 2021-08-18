@@ -1,0 +1,16 @@
+/batch_file/batch_file/train.h5.batch1
+/batch_file/batch_file/train.h5.batch2
+/batch_file/batch_file/train.h5.batch3
+/batch_file/batch_file/train.h5.batch4
+/batch_file/batch_file/train.h5.batch5
+/batch_file/batch_file/train.h5.batch6
+/batch_file/batch_file/train.h5.batch7
+/batch_file/batch_file/train.h5.batch8
+/batch_file/batch_file/train.h5.batch9
+/batch_file/batch_file/train.h5.batch10
+/batch_file/batch_file/train.h5.batch11
+/batch_file/batch_file/train.h5.batch12
+/batch_file/batch_file/train.h5.batch13
+/batch_file/batch_file/train.h5.batch14
+/batch_file/batch_file/train.h5.batch15
+/batch_file/batch_file/train.h5.batch16

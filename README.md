@@ -34,6 +34,9 @@ User needs to prepare [sequence file](https://github.com/gifford-lab/Keras-genom
 
 Then run the following to embed each set into HDF5 format.
 
+- - 表示每行两列，-d' ' 表示空格作为列与列之间的分隔符，< 表示从文件输入， > 表示写入到指定文件
+
+train.tsv + train.target -> train.h5
 
 ```
 paste - - -d' ' < FASTA_FILE > tmp.tsv
@@ -48,6 +51,7 @@ python $REPO_HOME/embedH5.py tmp.tsv TARGET_FILE DATA_TOPDIR/FILE_NAME  -b BATCH
 标签文件  
 
 + `DATA_TOPDIR`: the *absolute path* of the output directory  
+输出绝对路径
 
 + `FILE_NAME`: 'train.h5.batch','valid.h5.batch',or 'test.h5.batch' for training, validation and test set.
 文件名  

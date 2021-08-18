@@ -7,14 +7,13 @@ from common_defs import *
 
 # a dict with x_train, y_train, x_test, y_test
 
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Flatten, Activation
-from keras.layers.normalization import BatchNormalization as BatchNorm
-from keras.layers.convolutional import ZeroPadding2D, Conv2D
-from keras.layers import GlobalMaxPooling2D
-from keras.callbacks import EarlyStopping
-from keras.layers.advanced_activations import *
-from keras.optimizer_v1 import Adadelta,RMSprop
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout, Flatten, Activation, BatchNormalization as BathNorm, ZeroPadding2D, Conv2D
+from tensorflow.keras.layers import GlobalMaxPooling2D
+from tensorflow.keras.callbacks import EarlyStopping
+#from tensorflow.keras.layers.advanced_activations import *
+#from tensorflow.keras.optimizer_v1 import Adadelta,RMSprop
+from tensorflow.keras.optimizers import Adadelta
 
 
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler, MaxAbsScaler
