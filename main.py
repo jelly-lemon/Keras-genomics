@@ -13,11 +13,16 @@ from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from sklearn.metrics import accuracy_score,roc_auc_score
 from pprint import pprint
 
+from tensorflow.keras.optimizers import Adam, Adadelta
+
 from hyperband import Hyperband
 
 cwd = dirname(realpath(__file__))
 
 def parse_args():
+    """
+    解析命令行参数
+    """
     parser = argparse.ArgumentParser(description="Keras + Hyperband for genomics")
     parser.add_argument("-y", "--hyper", dest="hyper", default=False, action='store_true',help="Perform hyper-parameter tuning")
     parser.add_argument("-t", "--train", dest="train", default=False, action='store_true',help="Train on the training set with the best hyper-params")
@@ -73,7 +78,11 @@ def load_model(weightfile2load=None):
     if weightfile2load:
         model.load_weights(weightfile2load)
     best_optim, best_optim_config, best_lossfunc = cPickle.load(open(optimizer_file, 'rb'))
-    model.compile(loss=best_lossfunc, optimizer = best_optim.from_config(best_optim_config), metrics=['categorical_accuracy'])
+    # 使用 Adam
+    # optimizer = best_optim.from_config(best_optim_config)
+    optimizer = Adam()
+    best_lossfunc = 'binary_crossentropy'
+    model.compile(loss=best_lossfunc, optimizer = optimizer, metrics=['acc'])
     return model
 
 
@@ -94,15 +103,21 @@ if __name__ == "__main__":
     last_weight_file = join(outdir,model_arch+'_lastmodel_weights.h5') if args.lweightfile is None else args.lweightfile
     evalout = join(outdir,model_arch+'_eval.txt')
 
+    #
+    # 把模型放在临时目录，这样不管传什么模型进行，统一重命名为 mymodel.py，复用代码
+    #
     tmpdir = "./tmp"
-    shutil.rmtree(tmpdir)
-    os.makedirs(tmpdir)
-    #system(' '.join(['cp', args.model, join(tmpdir,'mymodel.py')]))
+    if os.path.exists(tmpdir) is False:
+        os.makedirs(tmpdir)
     shutil.copy(args.model, './tmp/mymodel.py')
     sys.path.append(tmpdir)
     import mymodel
     hb = Hyperband( mymodel.get_params, mymodel.try_params,  args.topdir, max_iter=args.hyperiter, datamode=args.datamode)
 
+
+    #
+    # 超参数调整
+    #
     if args.hyper:
         ## Hyper-parameter tuning
         results = hb.run( skip_last = 1 )
@@ -114,17 +129,22 @@ if __name__ == "__main__":
         open(architecture_file, 'w').write(best_archit)
         cPickle.dump((best_optim, best_optim_config, best_lossfunc),open(optimizer_file,'wb') )
 
+    #
+    # 训练
+    #
     if args.train:
-        ### Training
         model = load_model()
         model, history_callback = train_func(model, weight_file)
 
         model.save_weights(last_weight_file, overwrite=True)
-        system('touch '+join(outdir, model_arch+'.traindone'))
         myhist = history_callback.history
         all_hist = np.asarray([myhist["loss"], myhist["categorical_accuracy"], myhist["val_loss"], myhist["val_categorical_accuracy"]]).transpose()
         np.savetxt(join(outdir, model_arch+".training_history.txt"), all_hist,delimiter = "\t", header='loss\tacc\tval_loss\tval_acc')
 
+    #
+    # 加载权重继续训练
+    # -d batch_file -m model.py -te 1000  -pa 100 -r r01 -rw batch_file/model/model_bestmodel_weights.h5
+    #
     if args.retrain:
         ### Resume training
         new_weight_file = weight_file + '.'+args.retrain
@@ -134,11 +154,13 @@ if __name__ == "__main__":
         model, history_callback = train_func(model, new_weight_file)
 
         model.save_weights(new_last_weight_file, overwrite=True)
-        system('touch '+join(outdir, model_arch+'.traindone'))
         myhist = history_callback.history
         all_hist = np.asarray([myhist["loss"], myhist["categorical_accuracy"], myhist["val_loss"], myhist["val_categorical_accuracy"]]).transpose()
         np.savetxt(join(outdir, model_arch+".training_history."+ args.retrain + ".txt"), all_hist, delimiter = "\t", header='loss\tacc\tval_loss\tval_acc')
 
+    #
+    # 评估
+    #
     if args.eval:
         ## Evaluate
         model = load_model(weight_file)
@@ -163,6 +185,9 @@ if __name__ == "__main__":
         print('Test categorical accuracy:', t_acc)
         np.savetxt(evalout, [t_auc, t_acc])
 
+    #
+    # 预测未知数据
+    #
     if args.infile != '':
         ## Predict on new batch_file
         model = load_model(weight_file)
@@ -174,7 +199,7 @@ if __name__ == "__main__":
         if exists(outdir):
             print('Output directory', outdir, 'exists! Overwrite? (yes/no)')
             if input().lower() == 'yes':
-                system('rm -r ' + outdir)
+                shutil.rmtree(outdir)
             else:
                 print('Quit predicting!')
                 sys.exit(1)
@@ -193,5 +218,4 @@ if __name__ == "__main__":
             for label_dim in range(pred.shape[1]):
                 with open(join(t_outdir, str(label_dim)+'.pkl'), 'wb') as f:
                     cPickle.dump(pred[:, label_dim], f)
-    #system('rm -r ' + tmpdir)
     shutil.rmtree(tmpdir)
