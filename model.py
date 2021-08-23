@@ -21,7 +21,7 @@ def get_params():
 
 
 def print_params(params):
-    pprint({k: v for k, v in params.items() if not k.startswith('layer_')})
+    print({k: v for k, v in params.items() if not k.startswith('layer_')})
 
 
 def get_model():

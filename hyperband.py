@@ -8,7 +8,6 @@ from time import time, ctime
 
 
 class Hyperband:
-
     def __init__(self, get_params_function, try_params_function, datadir, max_iter=81, eta=3, datamode='memory'):
         self.get_params = get_params_function
         self.try_params = try_params_function

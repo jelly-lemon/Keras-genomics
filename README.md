@@ -58,5 +58,3 @@ python main.py -d batch_file -m model.py -y -t -e
 -y: 进行超参数调整 
 -t: 训练模型
 -e: 评估模型
-
-All the intermediate output will be under "expt1". If everything works fine, you should get a test AUC around 0.97

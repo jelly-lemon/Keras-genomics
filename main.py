@@ -1,23 +1,30 @@
 from __future__ import print_function
 
+import argparse
+import h5py
 import os
-import shutil
-import time, numpy as np, sys, h5py, argparse, subprocess
 # python2 中叫 cPickle
 import pickle as cPickle
-from os.path import join, dirname, basename, exists, realpath
-from os import system, chdir, getcwd, makedirs
-from tensorflow.keras.models import model_from_json
-from tempfile import mkdtemp
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
-from sklearn.metrics import accuracy_score, roc_auc_score
+import shutil
+import sys
+import time
 from pprint import pprint
-
-from tensorflow.keras.optimizers import Adam, Adadelta
+import numpy as np
+from sklearn.metrics import accuracy_score, roc_auc_score
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
+from tensorflow.keras.models import model_from_json
+from tensorflow.keras.optimizers import Adam
+from tensorflow_core.python.keras import Model
 
 from hyperband import Hyperband
 
-cwd = dirname(realpath(__file__))
+# 当前工作目录
+cwd = os.path.dirname(os.path.realpath(__file__))
+
+# 超参数
+loss_func = "binary_crossentropy"
+optimizer = Adam()
+metrics = "[acc]"
 
 
 def parse_args():
@@ -59,24 +66,31 @@ def parse_args():
     return parser.parse_args()
 
 
-def train_func(model, weightfile2save):
-    checkpointer = ModelCheckpoint(filepath=weightfile2save, verbose=1, save_best_only=True)
+def train_model(model: Model, weight_save_path: str):
+    """
+    训练模型
+
+    :param model:模型
+    :param weight_save_path: 权重保存路径
+    """
+    checkpointer = ModelCheckpoint(filepath=weight_save_path, verbose=1, save_best_only=True)
     early_stopping = EarlyStopping(monitor='val_loss', patience=args.patience, verbose=0)
 
     # 加载数据、设置超参数
     if args.datamode == 'generator':
-        trainbatch_num, train_size = hb.probedata(join(args.topdir, 'train.h5.batch'))
-        validbatch_num, valid_size = hb.probedata(join(args.topdir, 'valid.h5.batch'))
+        trainbatch_num, train_size = hb.probedata(os.path.join(args.topdir, 'train.h5.batch'))
+        validbatch_num, valid_size = hb.probedata(os.path.join(args.topdir, 'valid.h5.batch'))
         history_callback = model.fit_generator(
-            hb.BatchGenerator(args.batchsize, join(args.topdir, 'train.h5.batch'), shuf=args.shuf == 1),
+            hb.BatchGenerator(args.batchsize, os.path.join(args.topdir, 'train.h5.batch'), shuf=args.shuf == 1),
             train_size / args.batchsize * args.epochratio,
             args.trainepoch,
-            validation_data=hb.BatchGenerator(args.batchsize, join(args.topdir, 'valid.h5.batch'), shuf=args.shuf == 1),
+            validation_data=hb.BatchGenerator(args.batchsize, os.path.join(args.topdir, 'valid.h5.batch'),
+                                              shuf=args.shuf == 1),
             validation_steps=np.ceil(float(valid_size) / args.batchsize),
             callbacks=[checkpointer, early_stopping])
     else:
-        Y_train, traindata = hb.readdata(join(args.topdir, 'train.h5.batch'))
-        Y_valid, validdata = hb.readdata(join(args.topdir, 'valid.h5.batch'))
+        Y_train, traindata = hb.readdata(os.path.join(args.topdir, 'train.h5.batch'))
+        Y_valid, validdata = hb.readdata(os.path.join(args.topdir, 'valid.h5.batch'))
         history_callback = model.fit(
             traindata,
             Y_train,
@@ -89,36 +103,51 @@ def train_func(model, weightfile2save):
     return model, history_callback
 
 
-def load_model(weightfile2load=None):
+def load_model(weightfile2load: str = None) -> Model:
+    """
+    加载模型
+
+    :param weightfile2load:权重文件路径 [in]
+    :return:模型
+    """
+    # 加载模型结构
     model = model_from_json(open(architecture_file).read())
+
+    # 加载保存的权重
     if weightfile2load:
         model.load_weights(weightfile2load)
+
+    # 加载超参数
     best_optim, best_optim_config, best_lossfunc = cPickle.load(open(optimizer_file, 'rb'))
-    # 使用 Adam
-    # optimizer = best_optim.from_config(best_optim_config)
-    optimizer = Adam()
-    best_lossfunc = 'binary_crossentropy'
-    model.compile(loss=best_lossfunc, optimizer=optimizer, metrics=['acc'])
+
+    model.compile(loss=best_lossfunc, optimizer=optimizer, metrics=metrics)
+
     return model
 
 
 if __name__ == "__main__":
     os.system("chcp 65001")
 
+    # 解析命令行参数
     args = parse_args()
-    model_arch = basename(args.model)
+
+    # 获取模型文件名
+    model_arch = os.path.basename(args.model)
     model_arch = model_arch[:-3] if model_arch[-3:] == '.py' else model_arch
 
-    outdir = join(args.topdir, model_arch)
-    if not exists(outdir):
-        makedirs(outdir)
+    # 创建输出目录
+    outdir = os.path.join(args.topdir, model_arch)
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
 
-    architecture_file = join(outdir, model_arch + '_best_archit.json')
-    optimizer_file = join(outdir, model_arch + '_best_optimer.pkl')
-    weight_file = join(outdir, model_arch + '_bestmodel_weights.h5') if args.weightfile is None else args.weightfile
-    last_weight_file = join(outdir,
-                            model_arch + '_lastmodel_weights.h5') if args.lweightfile is None else args.lweightfile
-    evalout = join(outdir, model_arch + '_eval.txt')
+    # 设置模型结构、最优超参数、权重、上一次权重保存路径
+    architecture_file = os.path.join(outdir, model_arch + '_best_archit.json')
+    optimizer_file = os.path.join(outdir, model_arch + '_best_optimer.pkl')
+    weight_file_out_path = os.path.join(outdir,
+                                        model_arch + '_bestmodel_weights.h5') if args.weightfile is None else args.weightfile
+    last_weight_file = os.path.join(outdir,
+                                    model_arch + '_lastmodel_weights.h5') if args.lweightfile is None else args.lweightfile
+    evalout = os.path.join(outdir, model_arch + '_eval.txt')
 
     #
     # 把模型放在临时目录，这样不管传什么模型进行，统一重命名为 mymodel.py，复用代码
@@ -128,14 +157,15 @@ if __name__ == "__main__":
         os.makedirs(tmpdir)
     shutil.copy(args.model, './tmp/mymodel.py')
     sys.path.append(tmpdir)
-    import mymodel
-
-    hb = Hyperband(mymodel.get_params, mymodel.try_params, args.topdir, max_iter=args.hyperiter, datamode=args.datamode)
 
     #
-    # 超参数调整
+    # 超参数搜索
     #
     if args.hyper:
+        import mymodel
+
+        hb = Hyperband(mymodel.get_params, mymodel.try_params, args.topdir, max_iter=args.hyperiter,
+                       datamode=args.datamode)
         ## Hyper-parameter tuning
         results = hb.run(skip_last=1)
 
@@ -151,32 +181,31 @@ if __name__ == "__main__":
     #
     if args.train:
         model = load_model()
-        model, history_callback = train_func(model, weight_file)
-
+        model, history_callback = train_model(model, weight_file_out_path)
         model.save_weights(last_weight_file, overwrite=True)
         myhist = history_callback.history
-        all_hist = np.asarray([myhist["loss"], myhist["categorical_accuracy"], myhist["val_loss"],
-                               myhist["val_categorical_accuracy"]]).transpose()
-        np.savetxt(join(outdir, model_arch + ".training_history.txt"), all_hist, delimiter="\t",
+        all_hist = np.asarray([myhist["loss"], myhist["acc"], myhist["val_loss"],
+                               myhist["val_acc"]]).transpose()
+        np.savetxt(os.path.join(outdir, model_arch + ".training_history.txt"), all_hist, delimiter="\t",
                    header='loss\tacc\tval_loss\tval_acc')
-
-    #
-    # 加载权重继续训练
-    # -d batch_file -m model.py -te 1000  -pa 100 -r r01 -rw batch_file/model/model_bestmodel_weights.h5
-    #
-    if args.retrain:
+    elif args.retrain:
+        #
+        # 加载权重继续训练
+        # -d batch_file -m model.py -te 1000  -pa 100 -r r01 -rw batch_file/model/model_bestmodel_weights.h5
+        #
         ### Resume training
-        new_weight_file = weight_file + '.' + args.retrain
+        new_weight_file = weight_file_out_path + '.' + args.retrain
         new_last_weight_file = last_weight_file + '.' + args.retrain
 
         model = load_model(args.rweightfile)
-        model, history_callback = train_func(model, new_weight_file)
+        model, history_callback = train_model(model, new_weight_file)
 
         model.save_weights(new_last_weight_file, overwrite=True)
         myhist = history_callback.history
         all_hist = np.asarray([myhist["loss"], myhist["categorical_accuracy"], myhist["val_loss"],
                                myhist["val_categorical_accuracy"]]).transpose()
-        np.savetxt(join(outdir, model_arch + ".training_history." + args.retrain + ".txt"), all_hist, delimiter="\t",
+        np.savetxt(os.path.join(outdir, model_arch + ".training_history." + args.retrain + ".txt"), all_hist,
+                   delimiter="\t",
                    header='loss\tacc\tval_loss\tval_acc')
 
     #
@@ -184,14 +213,14 @@ if __name__ == "__main__":
     #
     if args.eval:
         ## Evaluate
-        model = load_model(weight_file)
+        model = load_model(weight_file_out_path)
 
         pred_for_evalidx = []
         pred_bin = []
         y_true_for_evalidx = []
         y_true = []
-        testbatch_num, _ = hb.probedata(join(args.topdir, 'test.h5.batch'))
-        test_generator = hb.BatchGenerator(None, join(args.topdir, 'test.h5.batch'), shuf=args.shuf == 1)
+        testbatch_num, _ = hb.probedata(os.path.join(args.topdir, 'test.h5.batch'))
+        test_generator = hb.BatchGenerator(None, os.path.join(args.topdir, 'test.h5.batch'), shuf=args.shuf == 1)
         for _ in range(testbatch_num):
             X_test, Y_test = next(test_generator)
             t_pred = model.predict(X_test)
@@ -211,14 +240,15 @@ if __name__ == "__main__":
     #
     if args.infile != '':
         ## Predict on new batch_file
-        model = load_model(weight_file)
+        model = load_model(weight_file_out_path)
 
         predict_batch_num, _ = hb.probedata(args.infile)
         print('Total number of batch to predict:', predict_batch_num)
 
-        outdir = join(dirname(args.infile),
-                      '.'.join(['pred', model_arch, basename(args.infile)])) if args.outdir == '' else args.outdir
-        if exists(outdir):
+        outdir = os.path.join(os.path.dirname(args.infile),
+                              '.'.os.path.join(['pred', model_arch,
+                                                os.path.basename(args.infile)])) if args.outdir == '' else args.outdir
+        if os.path.exists(outdir):
             print('Output directory', outdir, 'exists! Overwrite? (yes/no)')
             if input().lower() == 'yes':
                 shutil.rmtree(outdir)
@@ -235,9 +265,11 @@ if __name__ == "__main__":
             time2 = time.time()
             print('predict took %0.3f ms' % ((time2 - time1) * 1000.0))
 
-            t_outdir = join(outdir, 'batch' + str(i + 1))
-            makedirs(t_outdir)
+            t_outdir = os.path.join(outdir, 'batch' + str(i + 1))
+            os.makedirs(t_outdir)
             for label_dim in range(pred.shape[1]):
-                with open(join(t_outdir, str(label_dim) + '.pkl'), 'wb') as f:
+                with open(os.path.join(t_outdir, str(label_dim) + '.pkl'), 'wb') as f:
                     cPickle.dump(pred[:, label_dim], f)
+
+    # 删除临时文件
     shutil.rmtree(tmpdir)
