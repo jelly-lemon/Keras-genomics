@@ -15,16 +15,20 @@ from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from tensorflow.keras.models import model_from_json
 from tensorflow.keras.optimizers import Adam
 from tensorflow_core.python.keras import Model
+import MyModel
 
+import DataHelper
 from hyperband import Hyperband
 
 # 当前工作目录
 cwd = os.path.dirname(os.path.realpath(__file__))
 
-# 超参数
-loss_func = "binary_crossentropy"
-optimizer = Adam()
-metrics = "[acc]"
+#
+# 默认超参数
+#
+LOSS = "binary_crossentropy"
+OPTIMIZER = Adam()
+METRICS = "[acc]"
 
 
 def parse_args():
@@ -78,19 +82,19 @@ def train_model(model: Model, weight_save_path: str):
 
     # 加载数据、设置超参数
     if args.datamode == 'generator':
-        trainbatch_num, train_size = hb.probedata(os.path.join(args.topdir, 'train.h5.batch'))
-        validbatch_num, valid_size = hb.probedata(os.path.join(args.topdir, 'valid.h5.batch'))
+        trainbatch_num, train_size = DataHelper.probe_data(os.path.join(args.topdir, 'train.h5.batch'))
+        validbatch_num, valid_size = DataHelper.probe_data(os.path.join(args.topdir, 'valid.h5.batch'))
         history_callback = model.fit_generator(
-            hb.BatchGenerator(args.batchsize, os.path.join(args.topdir, 'train.h5.batch'), shuf=args.shuf == 1),
+            DataHelper.batch_generator(args.batchsize, os.path.join(args.topdir, 'train.h5.batch'), shuf=args.shuf == 1),
             train_size / args.batchsize * args.epochratio,
             args.trainepoch,
-            validation_data=hb.BatchGenerator(args.batchsize, os.path.join(args.topdir, 'valid.h5.batch'),
-                                              shuf=args.shuf == 1),
+            validation_data=DataHelper.batch_generator(args.batchsize, os.path.join(args.topdir, 'valid.h5.batch'),
+                                               shuf=args.shuf == 1),
             validation_steps=np.ceil(float(valid_size) / args.batchsize),
             callbacks=[checkpointer, early_stopping])
     else:
-        Y_train, traindata = hb.readdata(os.path.join(args.topdir, 'train.h5.batch'))
-        Y_valid, validdata = hb.readdata(os.path.join(args.topdir, 'valid.h5.batch'))
+        Y_train, traindata = DataHelper.read_data(os.path.join(args.topdir, 'train.h5.batch'))
+        Y_valid, validdata = DataHelper.read_data(os.path.join(args.topdir, 'valid.h5.batch'))
         history_callback = model.fit(
             traindata,
             Y_train,
@@ -103,7 +107,7 @@ def train_model(model: Model, weight_save_path: str):
     return model, history_callback
 
 
-def load_model(weightfile2load: str = None) -> Model:
+def load_model(architecture_file:str = None, weightfile2load: str = None, optimizer_file:str=None) -> Model:
     """
     加载模型
 
@@ -111,16 +115,26 @@ def load_model(weightfile2load: str = None) -> Model:
     :return:模型
     """
     # 加载模型结构
-    model = model_from_json(open(architecture_file).read())
+    try:
+        model = model_from_json(open(architecture_file).read())
+        print("model_from_json succeed")
+    except Exception as e:
+        # TODO
+        model = MyModel.get_model()
+        print("get_model succeed")
+
 
     # 加载保存的权重
     if weightfile2load:
         model.load_weights(weightfile2load)
 
-    # 加载超参数
-    best_optim, best_optim_config, best_lossfunc = cPickle.load(open(optimizer_file, 'rb'))
-
-    model.compile(loss=best_lossfunc, optimizer=optimizer, metrics=metrics)
+    # 配置超参数
+    try:
+        best_optimizer, best_optimizer_config, best_loss = cPickle.load(open(optimizer_file, 'rb'))
+        #TODO 根据 best_optimizer_config 设置 best_optimizer
+        model.compile(loss=best_loss, optimizer=best_optimizer, metrics=METRICS)
+    except Exception:
+        model.compile(loss=LOSS, optimizer=OPTIMIZER, metrics=METRICS)
 
     return model
 
@@ -162,16 +176,16 @@ if __name__ == "__main__":
     # 超参数搜索
     #
     if args.hyper:
-        import mymodel
-
-        hb = Hyperband(mymodel.get_params, mymodel.try_params, args.topdir, max_iter=args.hyperiter,
+        # 搜索最优参数
+        hb = Hyperband(MyModel.get_params, MyModel.try_params, args.topdir, max_iter=args.hyperiter,
                        datamode=args.datamode)
-        ## Hyper-parameter tuning
         results = hb.run(skip_last=1)
 
+        # 打印最优参数
         best_result = sorted(results, key=lambda x: x['loss'])[0]
         pprint(best_result['params'])
 
+        # 保存最优参数到文件 architecture_file
         best_archit, best_optim, best_optim_config, best_lossfunc = best_result['model']
         open(architecture_file, 'w').write(best_archit)
         cPickle.dump((best_optim, best_optim_config, best_lossfunc), open(optimizer_file, 'wb'))
@@ -191,7 +205,7 @@ if __name__ == "__main__":
     elif args.retrain:
         #
         # 加载权重继续训练
-        # -d batch_file -m model.py -te 1000  -pa 100 -r r01 -rw batch_file/model/model_bestmodel_weights.h5
+        # -d batch_file -m MyModel.py -te 1000  -pa 100 -r r01 -rw batch_file/model/model_bestmodel_weights.h5
         #
         ### Resume training
         new_weight_file = weight_file_out_path + '.' + args.retrain
@@ -219,8 +233,8 @@ if __name__ == "__main__":
         pred_bin = []
         y_true_for_evalidx = []
         y_true = []
-        testbatch_num, _ = hb.probedata(os.path.join(args.topdir, 'test.h5.batch'))
-        test_generator = hb.BatchGenerator(None, os.path.join(args.topdir, 'test.h5.batch'), shuf=args.shuf == 1)
+        testbatch_num, _ = hb.probe_data(os.path.join(args.topdir, 'test.h5.batch'))
+        test_generator = hb.batch_generator(None, os.path.join(args.topdir, 'test.h5.batch'), shuf=args.shuf == 1)
         for _ in range(testbatch_num):
             X_test, Y_test = next(test_generator)
             t_pred = model.predict(X_test)
@@ -242,7 +256,7 @@ if __name__ == "__main__":
         ## Predict on new batch_file
         model = load_model(weight_file_out_path)
 
-        predict_batch_num, _ = hb.probedata(args.infile)
+        predict_batch_num, _ = hb.probe_data(args.infile)
         print('Total number of batch to predict:', predict_batch_num)
 
         outdir = os.path.join(os.path.dirname(args.infile),

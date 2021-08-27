@@ -1,3 +1,5 @@
+from tensorflow_core.python.keras import Model
+
 from common_defs import *
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Conv2D
@@ -24,11 +26,44 @@ def print_params(params):
     print({k: v for k, v in params.items() if not k.startswith('layer_')})
 
 
-def get_model():
-    pass
+def get_model(input_shape, dropout=None) -> Model:
+    """
+    获取模型
+
+    :param input_shape:
+    :param dropout:
+    :return:
+    """
+    if dropout is None:
+        dropout = [0.1]
+    iter_dropout = iter(dropout)
+
+    #
+    # 构建模型
+    #
+    model = Sequential()
+    model.add(Conv2D(128, (1, 24), padding='same', input_shape=input_shape, activation='relu'))
+    model.add(GlobalMaxPooling2D())
+
+    model.add(Dense(32, activation='relu'))
+    model.add(Dropout(next(iter_dropout)))
+    model.add(Dense(2))
+    model.add(Activation('softmax'))
+
+    return model
+
 
 
 def try_params(n_iterations, params, data=None, datamode='memory'):
+    """
+    尝试参数
+
+    :param n_iterations:
+    :param params:
+    :param data:
+    :param datamode:
+    :return:
+    """
     print("iterations:", n_iterations)
     print_params(params)
 

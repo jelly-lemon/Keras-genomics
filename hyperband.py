@@ -1,10 +1,11 @@
 import os
 
-import numpy as np, subprocess, h5py
+import numpy as np
 from os.path import join
 from random import random
 from math import log, ceil
 from time import time, ctime
+import DataHelper
 
 
 class Hyperband:
@@ -12,28 +13,30 @@ class Hyperband:
         self.get_params = get_params_function
         self.try_params = try_params_function
 
+        # 读取数据到内存
         if datamode == 'memory':
-            Y_train, X_train = self.readdata(join(datadir, 'train.h5.batch'))
-            Y_test, X_test = self.readdata(join(datadir, 'valid.h5.batch'))
+            Y_train, X_train = DataHelper.read_data(join(datadir, 'train.h5.batch'))
+            Y_test, X_test = DataHelper.read_data(join(datadir, 'valid.h5.batch'))
             self.data = {'train': (X_train, Y_train), 'valid': (X_test, Y_test)}
         else:
+            # 数据生成器
             self.data = {
                 'train': {
-                    'gen_func': self.BatchGenerator,
+                    'gen_func': DataHelper.batch_generator,
                     'path': join(datadir, 'train.h5.batch'),
-                    'n_sample': self.probedata(join(datadir, 'train.h5.batch'))[1]},
+                    'n_sample': DataHelper.probe_data(join(datadir, 'train.h5.batch'))[1]},
                 'valid': {
-                    'gen_func': self.BatchGenerator,
+                    'gen_func': DataHelper.batch_generator,
                     'path': join(datadir, 'valid.h5.batch'),
-                    'n_sample': self.probedata(join(datadir, 'valid.h5.batch'))[1]},
+                    'n_sample': DataHelper.probe_data(join(datadir, 'valid.h5.batch'))[1]},
             }
 
-        self.datamode = datamode
+        self.data_mode = datamode
         self.max_iter = max_iter  # maximum iterations per configuration
         self.eta = eta  # defines configuration downsampling rate (default = 3)
 
-        self.logeta = lambda x: log(x) / log(self.eta)
-        self.s_max = int(self.logeta(self.max_iter))
+        self.log_eta = lambda x: log(x) / log(self.eta)
+        self.s_max = int(self.log_eta(self.max_iter))
         self.B = (self.s_max + 1) * self.max_iter
 
         self.results = []  # list of dicts
@@ -80,7 +83,7 @@ class Hyperband:
                     if dry_run:
                         result = {'loss': random(), 'log_loss': random(), 'auc': random()}
                     else:
-                        result = self.try_params(n_iterations, t, self.data, self.datamode)  # <---
+                        result = self.try_params(n_iterations, t, self.data, self.data_mode)  # <---
 
                     assert (type(result) == dict)
                     assert ('loss' in result)
@@ -115,69 +118,8 @@ class Hyperband:
 
         return self.results
 
-    def get_files(self, dataprefix):
-        target_files = []
-        data_dir, file_prefix = os.path.split(dataprefix)
-        # TODO 优化文件查找
-        for _1, _2, all_files in os.walk(data_dir):
-            break
-        for file_name in all_files:
-            if file_name.find(file_prefix) != -1:
-                target_files.append(os.path.join(data_dir, file_name))
 
-        return target_files
 
-    def readdata(self, dataprefix):
-        # allfiles = subprocess.check_output('ls '+dataprefix+'*', shell=True).split('\n')[:-1]
-        allfiles = self.get_files(dataprefix)
-        cnt = 0
-        samplecnt = 0
-        for x in allfiles:
-            if x.split(dataprefix)[1].isdigit():
-                cnt += 1
-                dataall = h5py.File(x, 'r')
-                if cnt == 1:
-                    label = np.asarray(dataall['label'])
-                    data = np.asarray(dataall['batch_file'])
-                else:
-                    label = np.vstack((label, dataall['label']))
-                    data = np.vstack((data, dataall['batch_file']))
-        return (label, data)
 
-    def BatchGenerator(self, mb_size, fileprefix, shuf=True):
-        # allfiles = subprocess.check_output('ls '+fileprefix+'*', shell=True).split('\n')[:-1]
-        allfiles = self.get_files(fileprefix)
-        cache = []
-        while True:
-            idx2use = np.random.permutation(range(len(allfiles))) if shuf else range(len(allfiles))
-            for i in idx2use:
-                data1f = h5py.File(fileprefix + str(i + 1), 'r')
-                data1 = data1f['batch_file'][()]
-                label = data1f['label'][()]
-                datalen = len(data1)
-                if shuf:
-                    reorder = np.random.permutation(range(datalen))
-                    data1 = data1[reorder]
-                    label = label[reorder]
-                minibatch_size = mb_size or datalen
-                idx = 0
-                if len(cache) != 0:
-                    idx = minibatch_size - len(cache)
-                    yield ([np.vstack((cache[0], data1[:idx])), np.vstack((cache[1], label[:idx]))])
-                while idx + minibatch_size <= datalen:
-                    idx += minibatch_size
-                    yield ([data1[(idx - minibatch_size):idx], label[(idx - minibatch_size):idx]])
-                if idx < datalen:
-                    cache = [data1[idx:], label[idx:]]
 
-    def probedata(self, dataprefix):
-        # allfiles = subprocess.check_output('ls '+dataprefix+'*', shell=True).split('\n')[:-1]
-        allfiles = self.get_files(dataprefix)
-        cnt = 0
-        samplecnt = 0
-        for x in allfiles:
-            if x.split(dataprefix)[1].isdigit():
-                cnt += 1
-                data = h5py.File(x, 'r')
-                samplecnt += len(data['label'])
-        return (cnt, samplecnt)
+

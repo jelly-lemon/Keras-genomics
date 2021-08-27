@@ -1,9 +1,8 @@
 import numpy as np
-
 from math import sqrt
-
 from sklearn.metrics import roc_auc_score as AUC, log_loss, accuracy_score as accuracy
 from sklearn.metrics import mean_squared_error as MSE, mean_absolute_error as MAE
+
 
 try:
     from hyperopt import hp

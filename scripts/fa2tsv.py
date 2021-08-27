@@ -22,4 +22,4 @@ def fa2tsv(fa_file_path, tsv_file_path):
 
 
 if __name__ == '__main__':
-    fa2tsv("row_data/test.fa", "row_data/test.tsv")
+    fa2tsv("../row_data/test.fa", "row_data/test.tsv")
