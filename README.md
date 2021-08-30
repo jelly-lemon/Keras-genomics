@@ -10,8 +10,6 @@ python 3.6
 ## 相关 python 包
 tensorflow 2.1.4（不用再单独安装 Keras，tf 2 自带 Keras）
 
-sklearn 0.24.2
-
 hyperopt 0.2.5	选择超参数
 
 **务必保证所有版本一致，避免出现未知的错误！**

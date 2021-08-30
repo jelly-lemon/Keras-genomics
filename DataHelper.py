@@ -85,20 +85,20 @@ def batch_generator(batch_size, file_prefix, shuf=True):
                 cache = [data1[idx:], label[idx:]]
 
 
-def read_data(dataprefix) -> tuple:
+def read_data(data_prefix) -> tuple:
     """
     读取数据
 
     :param self:
-    :param dataprefix:
+    :param data_prefix:
     :return:
     """
-    allfiles = get_files_by_prefix(dataprefix)
+    allfiles = get_files_by_prefix(data_prefix)
     batch_file_count = 0
     sample_count = 0
     for file_path in allfiles:
         print("load batch file:", file_path)
-        if file_path.split(dataprefix)[1].isdigit():
+        if file_path.split(data_prefix)[1].isdigit():
             batch_file_count += 1
             dataall = h5py.File(file_path, 'r')
             if batch_file_count == 1:

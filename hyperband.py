@@ -10,8 +10,9 @@ from models.BaseModel import BaseModel
 
 
 class Hyperband:
-    def __init__(self, baseModel:BaseModel, data_dir, max_iter=81, eta=3, data_mode='memory'):
+    def __init__(self, baseModel:BaseModel, data_dir, eta=3, data_mode='memory'):
         self.baseModel = baseModel
+        self.max_epochs = 20
 
         # 读取数据到内存
         if data_mode == 'memory':
@@ -32,7 +33,7 @@ class Hyperband:
             }
 
         self.data_mode = data_mode
-        self.max_iter = max_iter  # maximum iterations per configuration
+        self.max_iter = self.max_epochs  # maximum iterations per configuration
         self.eta = eta  # defines configuration downsampling rate (default = 3)
 
         self.log_eta = lambda x: log(x) / log(self.eta)
@@ -68,7 +69,7 @@ class Hyperband:
                 # and keep best (n_configs / eta) configurations
 
                 n_configs = n * self.eta ** (-i)
-                epoch = int(r * self.eta ** (i))
+                epochs = int(r * self.eta ** (i))
 
                 # print("\n*** {} configurations x {:.1f} iterations each".format(
                 #     n_configs, n_iterations))
@@ -88,7 +89,7 @@ class Hyperband:
                     if dry_run:
                         result = {'loss': random(), 'log_loss': random(), 'auc': random()}
                     else:
-                        result = self.baseModel.try_params(epoch, params, self.data, self.data_mode)  # <---
+                        result = self.baseModel.try_params(epochs, params, self.data, self.data_mode)  # <---
 
                     assert (type(result) == dict)
                     assert ('loss' in result)
@@ -111,7 +112,7 @@ class Hyperband:
                     result['counter'] = self.counter
                     result['seconds'] = seconds
                     result['params'] = params
-                    result['iterations'] = epoch
+                    result['epochs'] = epochs
 
                     self.results.append(result)
 

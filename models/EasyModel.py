@@ -4,11 +4,12 @@ from common_defs import *
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Conv2D, GlobalMaxPooling2D
 from tensorflow_core.python.keras import Model
-from BaseModel import BaseModel
+
+from models.BaseModel import BaseModel
 
 
 class EasyModel(BaseModel):
-    def __init__(self):
+    def __init__(self, save_dir: str, save_tag: str = ""):
         #
         # 超参数搜索空间
         #
@@ -18,7 +19,7 @@ class EasyModel(BaseModel):
             'MOMENT': hp.choice('moment', (0.9, 0.99, 0.999)),
             'batch_size': hp.choice('batch_size', (32,)),
         }
-        super(EasyModel, self).__init__(search_space)
+        super(EasyModel, self).__init__(search_space, save_dir, save_tag)
 
     def get_model(self, input_shape: tuple, params: dict) -> Model:
         """

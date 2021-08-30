@@ -9,24 +9,31 @@ from tensorflow_core.python.keras.saving.model_config import model_from_json
 import pickle
 
 import DataHelper
+import shutil
 
 
 class BaseModel:
     """
     自己封装的模型基类
     """
-    def __init__(self, search_space: dict, save_dir:str, save_tag:str=""):
+    def __init__(self, search_space: dict, save_dir: str, save_tag: str = ""):
         self.search_space = search_space
 
         # 创建保存文件夹
-        self.save_dir = save_dir + "/" + self.__class__.__name__ + "." + save_tag
+        if save_tag:
+            self.save_dir = save_dir + "/" + self.__class__.__name__ + "." + save_tag
+        else:
+            self.save_dir = save_dir + "/" + self.__class__.__name__
         if os.path.exists(self.save_dir):
-            save_number = 1
-            self.save_dir = self.save_dir + str(save_number)
-            while os.path.exists(self.save_dir):
-                save_number = save_number + 1
-                self.save_dir = self.save_dir + str(save_number)
+            c = input(self.save_dir + "  exists" + ", delete it? [y/n] ")
+            if c == "y":
+                shutil.rmtree(self.save_dir)
+                print("deleted")
+            else:
+                exit()
         os.makedirs(self.save_dir)
+        print("create dir:", self.save_dir)
+
 
     @abstractmethod
     def get_model(self, input_shape: tuple, params: dict) -> Model:
@@ -51,101 +58,90 @@ class BaseModel:
 
         return new_params
 
-    def try_params(self, epoch, params, data, data_mode='memory'):
-        """
-        尝试参数
-
-        :param epoch:
-        :param params:
-        :param data:
-        :param data_mode:
-        :return:
-        """
-        print("try_params:", params)
-
-        # 回调函数
+    def _train_model_by_gen(self, epochs:int, batch_size:int,
+                          train_gen, train_samples:int,
+                          val_gen, val_samples:int):
         early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
 
-        # 读取超参数
-        batch_size = params['batch_size']
-        loss_func = params["loss_func"]
-        optimizer = params["optimizer"]
+        train_epoch_step = train_samples / batch_size
+        valid_epoch_step = val_samples / batch_size
+        input_shape = train_gen.next()[0].shape[1:]
 
-        # 训练模型
-        if data_mode == 'memory':
-            X_train, Y_train = data['train']
-            X_valid, Y_valid = data['valid']
-            input_shape = X_train.shape[1:]
+        model = self.get_model(input_shape, params)
 
-            model = self.get_model(input_shape, params)
-
-            model.fit(
-                X_train,
-                Y_train,
-                batch_size=batch_size,
-                epochs=epoch,
-                validation_data=(X_valid, Y_valid),
-                callbacks=[early_stopping])
-            score, acc = model.evaluate(X_valid, Y_valid)
-
-        else:
-            train_generator = data['train']['gen_func'](batch_size, data['train']['path'])
-            valid_generator = data['valid']['gen_func'](batch_size, data['valid']['path'])
-            train_epoch_step = data['train']['n_sample'] / batch_size
-            valid_epoch_step = data['valid']['n_sample'] / batch_size
-            input_shape = data['train']['gen_func'](batch_size, data['train']['path']).next()[0].shape[1:]
-
-            model = self.get_model(input_shape, params)
-
-            model.fit_generator(
-                train_generator,
-                steps_per_epoch=train_epoch_step,
-                epochs=epoch,
-                validation_data=valid_generator,
-                validation_steps=valid_epoch_step,
-                callbacks=[early_stopping])
-            score, acc = model.evaluate_generator(valid_generator, steps=valid_epoch_step)
+        model.fit_generator(
+            train_gen,
+            steps_per_epoch=train_epoch_step,
+            epochs=epochs,
+            validation_data=val_gen,
+            validation_steps=valid_epoch_step,
+            callbacks=[early_stopping])
+        score, acc = model.evaluate_generator(val_gen, steps=valid_epoch_step)
 
         result = {'val_loss': score, 'model': (model.to_json(), optimizer, optimizer.get_config(), loss_func)}
 
         return result
 
-    def train_model(self, model: Model, weight_save_path: str, data_dir: str,
-                    batch_size: int, epochs: int, data_mode: str = "memory",
+    def train_by_gen(self):
+        pass
+
+    def train(self, x_train, y_train, x_val, y_val,
+              epochs, batch_size, steps_ratio, shuffle,
+              loss_func, optimizer, metrics):
+        checkpoint = ModelCheckpoint(filepath=self.save_dir, verbose=1, save_best_only=True)
+        early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
+        callbacks = [checkpoint, early_stopping]
+
+        self._train_model(x_train, y_train, x_val, y_val,
+                          epochs=epochs, batch_size=batch_size,
+                          shuffle=shuffle,
+                          loss_func=loss_func, optimizer=optimizer,
+                          metrics=metrics, callbacks=callbacks)
+
+
+
+    def _train_model(self, x_train, y_train, x_val, y_val,
+              epochs, batch_size, shuffle,
+              loss_func, optimizer, metrics, callbacks):
+        params = {"epochs": epochs, "batch_size": batch_size, "shuffle":shuffle,
+                  "loss_func":loss_func, "optimizer":optimizer, "metrics":metrics}
+        print("try_params:", params)
+
+        # 获取模型
+        input_shape = x_train.shape[1:]
+        model = self.get_model(input_shape, params)
+
+        # 训练模型
+        history_callback = model.fit(
+            x_train, y_train,
+            batch_size=batch_size,
+            epochs=epochs,
+            validation_data=(x_val, y_val),
+            callbacks=callbacks)
+        val_loss, val_acc = model.evaluate(x_val, y_val)
+
+        result = {'val_loss': val_loss, 'val_acc':val_acc, 'model': (model.to_json(), optimizer, optimizer.get_config(), loss_func)}
+
+        return result, history_callback
+
+    def try_params(self, batch_size: int, epochs: int,
                     steps_ratio: float = 1, shuffle: bool = True) -> tuple:
         """
-        训练模型
-
-        :param model:模型
-        :param weight_save_path: 权重保存路径
+        尝试参数
         """
-        checkpointer = ModelCheckpoint(filepath=weight_save_path, verbose=1, save_best_only=True)
         early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
+        callbacks = [early_stopping]
 
-        # 加载数据、设置超参数
-        if data_mode == 'memory':
-            Y_train, traindata = DataHelper.read_data(data_dir + '/train.h5.batch')
-            Y_valid, validdata = DataHelper.read_data(data_dir + '/valid.h5.batch')
-            history_callback = model.fit(
-                traindata,
-                Y_train,
-                batch_size=batch_size,
-                epochs=epochs,
-                validation_data=(validdata, Y_valid),
-                callbacks=[checkpointer, early_stopping],
-                shuffle=shuffle)
-        else:
-            trainbatch_num, train_size = DataHelper.probe_data(data_dir + '/train.h5.batch')
-            validbatch_num, valid_size = DataHelper.probe_data(data_dir + '/valid.h5.batch')
-            history_callback = model.fit_generator(
-                DataHelper.batch_generator(batch_size, data_dir + '/train.h5.batch', shuf=shuffle),
-                steps_per_epoch=int((train_size / batch_size) * steps_ratio),
-                epochs=epochs,
-                validation_data=DataHelper.batch_generator(batch_size, data_dir + '/valid.h5.batch', shuf=shuffle),
-                validation_steps=np.ceil(float(valid_size) / batch_size),
-                callbacks=[checkpointer, early_stopping])
+        self._train_model(x_train, y_train, x_val, y_val,
+                          steps_ratio = steps_ratio, shuffle=shuffle,
+                          epochs=epochs, batch_size=batch_size, loss_func=loss_func,
+                          optimizer=optimizer, metrics=metrics, callbacks=callbacks)
 
-        return model, history_callback
+    def try_params_by_gen(self):
+        self._train_model_by_gen(train_gen=train_gen, train_samples=train_samples,
+                                 val_gen=val_gen, val_samples=val_samples,
+                                 epochs=epochs, batch_size=batch_size)
+
 
     def load_saved_model(self, architecture_file: str = None, weightfile2load: str = None,
                          optimizer_file: str = None) -> Model:
@@ -172,6 +168,6 @@ class BaseModel:
         # 配置超参数
         best_optimizer, best_optimizer_config, best_loss = pickle.load(open(optimizer_file, 'rb'))
         best_optimizer = best_optimizer.from_config(best_optimizer_config)
-        model.compile(loss=best_loss, optimizer=best_optimizer, metrics=METRICS)
+        model.compile(loss=best_loss, optimizer=best_optimizer, metrics=['acc'])
 
         return model
