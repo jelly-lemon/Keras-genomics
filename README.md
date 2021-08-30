@@ -1,5 +1,7 @@
 基于 tensorflow/keras 对基因组数据（genomics data）进行深度学习训练、预测和超参数调整。
 
+fork 自：https://github.com/gifford-lab/Keras-genomics
+
 # 运行环境
 win 10
 
@@ -27,7 +29,7 @@ hyperopt 0.2.5	选择超参数
 
 6. 运行
 
-# 文件\目录说明
+# 相关文件/目录
 ```
 *.fa：FASTA 文件（原始数据文件，即从官网下载的数据，不带标签）
 *.target：标签文件
@@ -36,6 +38,8 @@ hyperopt 0.2.5	选择超参数
 
 --batch_file 存放批文件
 ```
+
+# 数据
 
 
 # 运行过程

@@ -14,8 +14,8 @@ def get_files_by_prefix(file_prefix: str) -> list:
     获取某目录下指定前缀的文件列表
 
     如：
-    file_prefix: /batch_file/train.h5.batch
-    返回：[/batch_file/train.h5.batch1, /batch_file/train.h5.batch2, /batch_file/train.h5.batch3]
+    file_prefix: /batch_files/train.h5.batch
+    返回：[/batch_files/train.h5.batch1, /batch_files/train.h5.batch2, /batch_files/train.h5.batch3]
 
     :param file_prefix:文件前缀
     :return:包含该前缀的文件列表
@@ -27,7 +27,7 @@ def get_files_by_prefix(file_prefix: str) -> list:
         break
     for file_name in all_files:
         if file_name.find(file_prefix) != -1:
-            target_file_paths.append(os.path.join(data_dir, file_name))
+            target_file_paths.append(data_dir + "/" + file_name)
 
     return target_file_paths
 
@@ -66,7 +66,7 @@ def batch_generator(batch_size, file_prefix, shuf=True):
         idx2use = np.random.permutation(range(len(allfiles))) if shuf else range(len(allfiles))
         for i in idx2use:
             data1f = h5py.File(file_prefix + str(i + 1), 'r')
-            data1 = data1f['batch_file'][()]
+            data1 = data1f['batch_files'][()]
             label = data1f['label'][()]
             datalen = len(data1)
             if shuf:
@@ -94,13 +94,14 @@ def read_data(dataprefix) -> tuple:
     :return:
     """
     allfiles = get_files_by_prefix(dataprefix)
-    cnt = 0
-    samplecnt = 0
-    for x in allfiles:
-        if x.split(dataprefix)[1].isdigit():
-            cnt += 1
-            dataall = h5py.File(x, 'r')
-            if cnt == 1:
+    batch_file_count = 0
+    sample_count = 0
+    for file_path in allfiles:
+        print("load batch file:", file_path)
+        if file_path.split(dataprefix)[1].isdigit():
+            batch_file_count += 1
+            dataall = h5py.File(file_path, 'r')
+            if batch_file_count == 1:
                 label = np.asarray(dataall['label'])
                 data = np.asarray(dataall['batch_file'])
             else:

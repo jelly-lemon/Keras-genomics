@@ -14,7 +14,7 @@ def outputHDF5(data, label, filename, labelname, dataname):
     :param dataname:
     :return:
     """
-    print('batch_file shape: ', data.shape)
+    print('batch_files shape: ', data.shape)
     comp_kwargs = {'compression': 'gzip', 'compression_opts': 1}
     # label = [[x.astype(np.float32)] for x in label]
     with h5py.File(filename, 'w') as f:
@@ -195,7 +195,7 @@ def parse_args():
     # 位置参数（必须输入）
     parser.add_argument("infile", type=str, help="Sequence in FASTA/TSV format (with .fa/.fasta or .tsv extension)")
     parser.add_argument("labelfile", type=str, help="Label of the sequence. One number per line")
-    parser.add_argument("outfile", type=str, help="Output file (example: $MODEL_TOPDIR$/batch_file/train.h5). ")
+    parser.add_argument("outfile", type=str, help="Output file (example: $MODEL_TOPDIR$/batch_files/train.h5). ")
 
     # 可选选项
     parser.add_argument("-m", "--mapperfile", dest="mapperfile", default="",
@@ -203,15 +203,15 @@ def parse_args():
     # 孪生神经网络输入文件
     parser.add_argument("-i", "--infile2", dest="infile2", default="", help="The paired input file for siamese network")
     parser.add_argument("-b", "--batch", dest="batch", type=int, default=5000,
-                        help="Batch size for batch_file storage (Defalt:5000)")
-    parser.add_argument("-p", "--prefix", dest="maniprefix", default='/batch_file',
-                        help="The model_dir (Default: /batch_file . This only works for mri-wrapper)")
+                        help="Batch size for batch_files storage (Defalt:5000)")
+    parser.add_argument("-p", "--prefix", dest="maniprefix", default='/batch_files',
+                        help="The model_dir (Default: /batch_files . This only works for mri-wrapper)")
     parser.add_argument("-l", "--labelname", dest="labelname", default='label',
                         help="The group name for labels in the HDF5 file")
-    parser.add_argument("-d", "--dataname", dest="dataname", default='batch_file',
-                        help="The group name for batch_file in the HDF5 file")
+    parser.add_argument("-d", "--dataname", dest="dataname", default='batch_files',
+                        help="The group name for batch_files in the HDF5 file")
     parser.add_argument("-s", "--isseq", dest="isseq", default='Y',
-                        help="The group name for batch_file in the HDF5 file")
+                        help="The group name for batch_files in the HDF5 file")
 
     return parser.parse_args()
 

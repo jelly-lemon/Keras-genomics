@@ -13,20 +13,8 @@ except ImportError:
           " unless you make get_params() use something else.")
 
 
-# handle floats which should be integers
-# works with flat params
-def handle_integers(params):
-    new_params = {}
-    for k, v in params.items():
-        if type(v) == float and int(v) == v:
-            new_params[k] = int(v)
-        else:
-            new_params[k] = v
-
-    return new_params
 
 
-###
 
 def train_and_eval_sklearn_classifier(clf, data):
     x_train = data['x_train']
