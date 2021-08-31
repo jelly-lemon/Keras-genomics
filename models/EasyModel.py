@@ -1,9 +1,9 @@
-from tensorflow_core.python.keras.optimizer_v2.adadelta import Adadelta
+from tensorflow_core.python.keras import Model
+from tensorflow_core.python.keras.optimizers import Adam
 
 from common_defs import *
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Conv2D, GlobalMaxPooling2D
-from tensorflow_core.python.keras import Model
 
 from models.BaseModel import BaseModel
 
@@ -14,21 +14,28 @@ class EasyModel(BaseModel):
         # 超参数搜索空间
         #
         search_space = {
-            'DROPOUT': hp.choice('drop', (0.05, 0.1, 0.2)),
-            'DELTA': hp.choice('delta', (1e-04, 1e-06, 1e-08)),
-            'MOMENT': hp.choice('moment', (0.9, 0.99, 0.999)),
+            'dropout': hp.choice('dropout', (0.05, 0.1, 0.2)),
+            #'DELTA': hp.choice('delta', (1e-04, 1e-06, 1e-08)),
+            #'MOMENT': hp.choice('moment', (0.9, 0.99, 0.999)),
             'batch_size': hp.choice('batch_size', (32,)),
+            'loss_func': hp.choice('loss_func', ('binary_crossentropy',)),
+            'optimizer': hp.choice('optimizer', ('Adam',)),
+            'activation': hp.choice('activation', ('softmax', )),
+            'optimizer_config': hp.choice('optimizer_config', ({},))
         }
         super(EasyModel, self).__init__(search_space, save_dir, save_tag)
 
-    def get_model(self, input_shape: tuple, params: dict) -> Model:
+    def get_model(self, params: dict) -> Model:
         """
         获取模型
 
         :param params:
         :return:
         """
+        input_shape = params["input_shape"]
         dropout = params["dropout"]
+        loss_func = params["loss_func"]
+        activation = params["activation"]
 
         #
         # 构建模型
@@ -40,13 +47,12 @@ class EasyModel(BaseModel):
         model.add(Dense(32, activation='relu'))
         model.add(Dropout(dropout))
         model.add(Dense(2))
-        model.add(Activation('softmax'))
+        model.add(Activation(activation=activation))
 
         #
         # 超参数
         #
-        optimizer = Adadelta(epsilon=params['DELTA'], rho=params['MOMENT'])
-        loss_func = 'categorical_crossentropy'
+        optimizer = self.get_optimizer(params["optimizer"], params["optimizer_config"])
         model.compile(loss=loss_func, optimizer=optimizer, metrics=['accuracy'])
 
         return model

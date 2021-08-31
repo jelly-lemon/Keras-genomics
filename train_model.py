@@ -14,6 +14,7 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 import DataHelper
 from Hyperband import Hyperband
 from models.Util import *
+import json
 
 # 当前工作目录
 cwd = os.path.dirname(os.path.realpath(__file__))
@@ -83,7 +84,7 @@ if __name__ == "__main__":
 
     # 设置模型结构等保存路径
     architecture_file = os.path.join(out_dir, model_name + '_best_archit.json')
-    optimizer_file = os.path.join(out_dir, model_name + '_best_optimer.pkl')
+    optimizer_file = os.path.join(out_dir, model_name + '_best_optimer.json')
     weight_file_out_path = os.path.join(out_dir,
                                         model_name + '_bestmodel_weights.h5') if args.weightfile is None else args.weightfile
     last_weight_file = os.path.join(out_dir,
@@ -92,13 +93,10 @@ if __name__ == "__main__":
 
     # 加载数据
     print(args)
-    if args.data_mode == "memory":
-        x_train, y_train = DataHelper.read_data(args.data_dir + "/train.h5.batch")
-        x_valid, y_valid = DataHelper.read_data(args.data_dir + "/valid.h5.batch")
+    x_train, y_train = DataHelper.read_data(args.data_dir + "/train.h5.batch")
+    x_valid, y_valid = DataHelper.read_data(args.data_dir + "/valid.h5.batch")
 
-    elif args.data_mode == "generator":
-        train_gen = DataHelper.batch_generator(args.batch_size, args.data_dir + "/train.h5.batch")
-        val_gen = DataHelper.batch_generator(args.batch_size, args.data_dir + "/valid.h5.batch")
+
 
 
     #
@@ -107,14 +105,14 @@ if __name__ == "__main__":
     if args.hyper:
         # 搜索最优参数
         hb = Hyperband(baseModel)
-        results = hb.search(skip_last=1)
+        results = hb.search(x_train, y_train, x_valid, y_valid,
+                            skip_last=1)
 
         # 保存最优参数到文件 architecture_file
-        best_result = sorted(results, key=lambda x: x['loss'])[0]
-        pprint(best_result['params'])
-        best_archit, best_optim, best_optim_config, best_lossfunc = best_result['model']
-        open(architecture_file, 'w').write(best_archit)
-        pickle.dump((best_optim, best_optim_config, best_lossfunc), open(optimizer_file, 'wb'))
+        best_result = sorted(results, key=lambda x: x['val_loss'])[0]
+        print(best_result)
+        json.dump(best_result['model'], open(architecture_file, 'w'))
+        json.dump(best_result["params"], open(optimizer_file, 'w'))
 
     """
     #

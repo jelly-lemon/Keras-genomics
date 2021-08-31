@@ -107,4 +107,4 @@ def read_data(data_prefix) -> tuple:
             else:
                 label = np.vstack((label, dataall['label']))
                 data = np.vstack((data, dataall['batch_file']))
-    return label, data
+    return data, label

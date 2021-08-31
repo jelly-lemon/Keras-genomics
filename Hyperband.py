@@ -1,38 +1,14 @@
-import os
-
 import numpy as np
-from os.path import join
-from random import random
 from math import log, ceil
 from time import time, ctime
-import DataHelper
 from models.BaseModel import BaseModel
 
 
 class Hyperband:
-    def __init__(self, baseModel:BaseModel, data_dir, eta=3, data_mode='memory'):
+    def __init__(self, baseModel: BaseModel, eta=3):
         self.baseModel = baseModel
-        self.max_epochs = 20
+        self.max_epochs = 5
 
-        # 读取数据到内存
-        if data_mode == 'memory':
-            Y_train, X_train = DataHelper.read_data(data_dir + "/" + 'train.h5.batch')
-            Y_test, X_test = DataHelper.read_data(data_dir + "/" + 'valid.h5.batch')
-            self.data = {'train': (X_train, Y_train), 'valid': (X_test, Y_test)}
-        else:
-            # 数据生成器
-            self.data = {
-                'train': {
-                    'gen_func': DataHelper.batch_generator,
-                    'path': data_dir + "/" + 'train.h5.batch',
-                    'n_sample': DataHelper.probe_data(join(data_dir, 'train.h5.batch'))[1]},
-                'valid': {
-                    'gen_func': DataHelper.batch_generator,
-                    'path': data_dir + "/" + 'valid.h5.batch',
-                    'n_sample': DataHelper.probe_data(join(data_dir, 'valid.h5.batch'))[1]},
-            }
-
-        self.data_mode = data_mode
         self.max_iter = self.max_epochs  # maximum iterations per configuration
         self.eta = eta  # defines configuration downsampling rate (default = 3)
 
@@ -45,14 +21,10 @@ class Hyperband:
         self.best_loss = np.inf
         self.best_counter = -1
 
-    def run(self, skip_last=0, dry_run=False):
-        """
+    def search_by_gen(self):
+        pass
 
-        :param skip_last:
-        :param dry_run:
-        :return:
-        """
-
+    def search(self, x_train, y_train, x_val, y_val, skip_last=0):
         for s in reversed(range(self.s_max + 1)):
             # initial number of configurations
             n = int(ceil(self.B / self.max_iter / (s + 1) * self.eta ** s))
@@ -86,18 +58,14 @@ class Hyperband:
 
                     start_time = time()
 
-                    if dry_run:
-                        result = {'loss': random(), 'log_loss': random(), 'auc': random()}
-                    else:
-                        result = self.baseModel.try_params(epochs, params, self.data, self.data_mode)  # <---
-
-                    assert (type(result) == dict)
-                    assert ('loss' in result)
+                    params["epochs"] = epochs
+                    result, history_callback = self.baseModel.try_params(x_train, y_train,
+                                                       x_val, y_val, params=params)
 
                     seconds = int(round(time() - start_time))
                     print("\n{} seconds.".format(seconds))
 
-                    loss = result['loss']
+                    loss = result['val_loss']
                     val_losses.append(loss)
 
                     early_stop = result.get('early_stop', False)
@@ -123,9 +91,3 @@ class Hyperband:
                 T_params = T_params[0:int(n_configs / self.eta)]
 
         return self.results
-
-
-
-
-
-

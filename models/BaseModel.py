@@ -1,14 +1,13 @@
+import json
 import os
 from abc import abstractmethod
 
-import numpy as np
 from hyperopt.pyll.stochastic import sample
-from tensorflow_core.python.keras import Model
-from tensorflow_core.python.keras.callbacks import EarlyStopping, ModelCheckpoint
-from tensorflow_core.python.keras.saving.model_config import model_from_json
+from tensorflow.keras import Model
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.optimizers import Adam
 import pickle
 
-import DataHelper
 import shutil
 
 
@@ -16,6 +15,7 @@ class BaseModel:
     """
     自己封装的模型基类
     """
+
     def __init__(self, search_space: dict, save_dir: str, save_tag: str = ""):
         self.search_space = search_space
 
@@ -34,9 +34,8 @@ class BaseModel:
         os.makedirs(self.save_dir)
         print("create dir:", self.save_dir)
 
-
     @abstractmethod
-    def get_model(self, input_shape: tuple, params: dict) -> Model:
+    def get_model(self, params: dict) -> Model:
         """
         获取模型
         """
@@ -58,9 +57,9 @@ class BaseModel:
 
         return new_params
 
-    def _train_model_by_gen(self, epochs:int, batch_size:int,
-                          train_gen, train_samples:int,
-                          val_gen, val_samples:int):
+    def _train_model_by_gen(self, epochs: int, batch_size: int,
+                            train_gen, train_samples: int,
+                            val_gen, val_samples: int):
         early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
 
         train_epoch_step = train_samples / batch_size
@@ -86,62 +85,55 @@ class BaseModel:
         pass
 
     def train(self, x_train, y_train, x_val, y_val,
-              epochs, batch_size, steps_ratio, shuffle,
-              loss_func, optimizer, metrics):
+              params):
         checkpoint = ModelCheckpoint(filepath=self.save_dir, verbose=1, save_best_only=True)
         early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
         callbacks = [checkpoint, early_stopping]
 
-        self._train_model(x_train, y_train, x_val, y_val,
-                          epochs=epochs, batch_size=batch_size,
-                          shuffle=shuffle,
-                          loss_func=loss_func, optimizer=optimizer,
-                          metrics=metrics, callbacks=callbacks)
-
-
+        return self._train_model(x_train, y_train, x_val, y_val, params, callbacks)
 
     def _train_model(self, x_train, y_train, x_val, y_val,
-              epochs, batch_size, shuffle,
-              loss_func, optimizer, metrics, callbacks):
-        params = {"epochs": epochs, "batch_size": batch_size, "shuffle":shuffle,
-                  "loss_func":loss_func, "optimizer":optimizer, "metrics":metrics}
-        print("try_params:", params)
+                     params, callbacks):
+        print("_train_model:", params)
 
         # 获取模型
         input_shape = x_train.shape[1:]
-        model = self.get_model(input_shape, params)
+        params["input_shape"] = input_shape
+        model = self.get_model(params)
 
         # 训练模型
         history_callback = model.fit(
             x_train, y_train,
-            batch_size=batch_size,
-            epochs=epochs,
+            batch_size=params['batch_size'],
+            epochs=params['epochs'],
             validation_data=(x_val, y_val),
             callbacks=callbacks)
         val_loss, val_acc = model.evaluate(x_val, y_val)
 
-        result = {'val_loss': val_loss, 'val_acc':val_acc, 'model': (model.to_json(), optimizer, optimizer.get_config(), loss_func)}
+        result = {'val_loss': val_loss, 'val_acc': val_acc,
+                  'model': json.loads(model.to_json()),
+                  'params': params}
 
         return result, history_callback
 
-    def try_params(self, batch_size: int, epochs: int,
-                    steps_ratio: float = 1, shuffle: bool = True) -> tuple:
+    def try_params(self, x_train, y_train, x_val, y_val,
+                   params):
         """
         尝试参数
         """
         early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
         callbacks = [early_stopping]
 
-        self._train_model(x_train, y_train, x_val, y_val,
-                          steps_ratio = steps_ratio, shuffle=shuffle,
-                          epochs=epochs, batch_size=batch_size, loss_func=loss_func,
-                          optimizer=optimizer, metrics=metrics, callbacks=callbacks)
+
+        result, history_callback = self._train_model(x_train, y_train, x_val, y_val,
+                                                     params=params, callbacks=callbacks)
+
+        return result, history_callback
 
     def try_params_by_gen(self):
         self._train_model_by_gen(train_gen=train_gen, train_samples=train_samples,
                                  val_gen=val_gen, val_samples=val_samples,
                                  epochs=epochs, batch_size=batch_size)
-
 
     def load_saved_model(self, architecture_file: str = None, weightfile2load: str = None,
                          optimizer_file: str = None) -> Model:
@@ -171,3 +163,8 @@ class BaseModel:
         model.compile(loss=best_loss, optimizer=best_optimizer, metrics=['acc'])
 
         return model
+
+
+    def get_optimizer(self, name, params):
+        if name == "Adam":
+            return Adam()
