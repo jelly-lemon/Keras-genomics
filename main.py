@@ -13,7 +13,7 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 
 import DataHelper
 from Hyperband import Hyperband
-from models.Util import *
+from models.ModelHelper import *
 
 # 当前工作目录
 cwd = os.path.dirname(os.path.realpath(__file__))

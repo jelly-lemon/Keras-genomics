@@ -15,27 +15,34 @@ class EasyModel(BaseModel):
         #
         search_space = {
             'dropout': hp.choice('dropout', (0.05, 0.1, 0.2)),
-            #'DELTA': hp.choice('delta', (1e-04, 1e-06, 1e-08)),
-            #'MOMENT': hp.choice('moment', (0.9, 0.99, 0.999)),
+            # 'DELTA': hp.choice('delta', (1e-04, 1e-06, 1e-08)),
+            # 'MOMENT': hp.choice('moment', (0.9, 0.99, 0.999)),
             'batch_size': hp.choice('batch_size', (32,)),
             'loss_func': hp.choice('loss_func', ('binary_crossentropy',)),
             'optimizer': hp.choice('optimizer', ('Adam',)),
-            'activation': hp.choice('activation', ('softmax', )),
+            'activation': hp.choice('activation', ('softmax',)),
             'optimizer_config': hp.choice('optimizer_config', ({},))
         }
-        super(EasyModel, self).__init__(search_space, save_dir, save_tag)
+        super().__init__(search_space, save_dir, save_tag)
 
-    def get_model(self, params: dict) -> Model:
+    def get_model(self, params: dict = None) -> Model:
         """
         获取模型
 
         :param params:
         :return:
         """
-        input_shape = params["input_shape"]
-        dropout = params["dropout"]
-        loss_func = params["loss_func"]
-        activation = params["activation"]
+        # 超参数
+        if params is not None:
+            input_shape = params["input_shape"]
+            dropout = params["dropout"]
+            activation = params["activation"]
+            loss_func = params["loss_func"]
+        else:
+            input_shape = (4, 1, 101)
+            dropout = 0.2
+            activation = "sigmoid"
+            loss_func = "binary_crossentropy"
 
         #
         # 构建模型
@@ -56,13 +63,3 @@ class EasyModel(BaseModel):
         model.compile(loss=loss_func, optimizer=optimizer, metrics=['accuracy'])
 
         return model
-
-
-
-
-
-
-
-
-
-

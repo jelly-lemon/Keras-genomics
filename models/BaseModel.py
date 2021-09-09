@@ -5,15 +5,16 @@ from abc import abstractmethod
 from hyperopt.pyll.stochastic import sample
 from tensorflow.keras import Model
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-from tensorflow.keras.optimizers import Adam
 import pickle
 
 import shutil
 
+from tensorflow_core.python.keras.saving.model_config import model_from_json
+
 
 class BaseModel:
     """
-    自己封装的模型基类
+    模型基类
     """
 
     def __init__(self, search_space: dict, save_dir: str, save_tag: str = ""):
@@ -28,14 +29,19 @@ class BaseModel:
             c = input(self.save_dir + "  exists" + ", delete it? [y/n] ")
             if c == "y":
                 shutil.rmtree(self.save_dir)
-                print("deleted")
             else:
                 exit()
         os.makedirs(self.save_dir)
-        print("create dir:", self.save_dir)
+        print("create dir:", self.save_dir, "succeed")
+
+        # 设置模型结构等保存路径
+        self.architecture_path = self.save_dir + "/" + self.__class__.__name__ + '_architech.json'
+        self.params_path = self.save_dir + "/" + self.__class__.__name__ + '_params.json'
+        self.weight_path = self.save_dir + "/" + self.__class__.__name__ + '_weight.h5'
+        self.eval_path = self.save_dir + "/" + self.__class__.__name__ + '_eval.txt'
 
     @abstractmethod
-    def get_model(self, params: dict) -> Model:
+    def get_model(self, params: dict = None) -> Model:
         """
         获取模型
         """
@@ -86,6 +92,16 @@ class BaseModel:
 
     def train(self, x_train, y_train, x_val, y_val,
               params):
+        """
+        训练模型
+
+        :param x_train:
+        :param y_train:
+        :param x_val:
+        :param y_val:
+        :param params:
+        :return:
+        """
         checkpoint = ModelCheckpoint(filepath=self.save_dir, verbose=1, save_best_only=True)
         early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
         callbacks = [checkpoint, early_stopping]
@@ -94,6 +110,17 @@ class BaseModel:
 
     def _train_model(self, x_train, y_train, x_val, y_val,
                      params, callbacks):
+        """
+        训练模型
+
+        :param x_train:
+        :param y_train:
+        :param x_val:
+        :param y_val:
+        :param params:
+        :param callbacks:
+        :return:
+        """
         print("_train_model:", params)
 
         # 获取模型
@@ -124,7 +151,6 @@ class BaseModel:
         early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
         callbacks = [early_stopping]
 
-
         result, history_callback = self._train_model(x_train, y_train, x_val, y_val,
                                                      params=params, callbacks=callbacks)
 
@@ -135,36 +161,33 @@ class BaseModel:
                                  val_gen=val_gen, val_samples=val_samples,
                                  epochs=epochs, batch_size=batch_size)
 
-    def load_saved_model(self, architecture_file: str = None, weightfile2load: str = None,
-                         optimizer_file: str = None) -> Model:
+    def load_saved_model(self, isLoadArchitecture: bool = True, isLoadWeight: bool = True,
+                         isLoadParams: bool = True) -> Model:
         """
-        加载模型
+        加载保存的模型
 
-        :param architecture_file:
-        :param optimizer_file:
-        :param weightfile2load:权重文件路径 [in]
+
         :return:模型
         """
-        if os.path.exists(architecture_file) is False:
-            info = "architecture_file not exists:" + architecture_file + ", Please search for super parameters first"
-            raise Exception(info)
+        # 加载超参数
+        params = None
+        if isLoadParams:
+            if os.path.exists(self.params_path):
+                params = json.load(open(self.params_path))
+                print("load params succeed:", params)
 
         # 加载模型结构
-        model = model_from_json(open(architecture_file).read())
-        print("model_from_json succeed:", architecture_file)
+        if isLoadArchitecture:
+            if os.path.exists(self.architecture_path):
+                model = model_from_json(open(self.architecture_path).read())
+                print("model_from_json succeed:", self.architecture_path)
+            else:
+                model = self.get_model(params)
+                print(self.architecture_path, "not exists, use default model")
 
         # 加载保存的权重
-        if weightfile2load:
-            model.load_weights(weightfile2load)
-
-        # 配置超参数
-        best_optimizer, best_optimizer_config, best_loss = pickle.load(open(optimizer_file, 'rb'))
-        best_optimizer = best_optimizer.from_config(best_optimizer_config)
-        model.compile(loss=best_loss, optimizer=best_optimizer, metrics=['acc'])
+        if isLoadWeight:
+            if os.path.exists(self.weight_path):
+                model.load_weights(self.weight_path)
 
         return model
-
-
-    def get_optimizer(self, name, params):
-        if name == "Adam":
-            return Adam()

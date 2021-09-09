@@ -7,7 +7,7 @@ win 10
 
 python 3.6
 
-## 相关 python 包
+## 相关 python 包（必须一致）
 tensorflow 2.1.4（不用再单独安装 Keras，tf 2 自带 Keras）
 
 hyperopt 0.2.5	选择超参数
@@ -27,15 +27,18 @@ hyperopt 0.2.5	选择超参数
 
 6. 运行
 
-# 相关文件/目录
-```
-*.fa：FASTA 文件（原始数据文件，即从官网下载的数据，不带标签）
-*.target：标签文件
-*.tsv：FASTA 文件转的
-*.h5.batch1：批文件（按 batch size 压缩的），用于训练
+# 文件夹说明
+--Keras-genomics
+  |--batch_files    数据预处理之后的批文件
+  |--row_data       原始数据集（下载时什么样就什么样）
+  |--saved_models   模型输出目录
+  |--scripts        数据预处理脚本
 
---batch_file 存放批文件
-```
+# 文件类型说明
+- *.fa：FASTA 文件（原始数据文件，即从官网下载的数据，不带标签）
+- *.target：标签文件
+- *.tsv：FASTA 文件转的
+- *.h5.batch1：批文件（按 batch size 压缩的），用于训练
 
 # 数据
 

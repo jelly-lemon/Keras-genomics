@@ -13,7 +13,7 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 
 import DataHelper
 from Hyperband import Hyperband
-from models.Util import *
+from models.ModelHelper import *
 import json
 
 # 当前工作目录
@@ -28,7 +28,7 @@ def parse_args():
     parser.add_argument("--save_tag", dest="save_tag", default="", action='store_true', help="Output directory tag")
     parser.add_argument("--hyper", dest="hyper", default=False, action='store_true',
                         help="Perform hyper-parameter tuning")
-    parser.add_argument("-t", "--train", dest="train", default=False, action='store_true',
+    parser.add_argument("-t", "--train", dest="train", default=True, action='store_true',
                         help="Train on the training set with the best hyper-params")
     parser.add_argument("-e", "--eval", dest="eval", default=False, action='store_true',
                         help="Evaluate the model on the test set")
@@ -66,61 +66,31 @@ def parse_args():
 
 
 if __name__ == "__main__":
-    os.system("chcp 65001")
-
     # 解析命令行参数
     args = parse_args()
+    print(args)
 
-    # 获取模型名
+    # 加载模型
     model_name = args.model_name
     if model_name is None:
         raise Exception("please input model name")
-
-    # 加载模型
     baseModel = get_model(model_name, args.out_dir, args.save_tag)
-
-    # 获取输出目录
     out_dir = baseModel.save_dir
 
-    # 设置模型结构等保存路径
-    architecture_file = os.path.join(out_dir, model_name + '_best_archit.json')
-    optimizer_file = os.path.join(out_dir, model_name + '_best_optimer.json')
-    weight_file_out_path = os.path.join(out_dir,
-                                        model_name + '_bestmodel_weights.h5') if args.weightfile is None else args.weightfile
-    last_weight_file = os.path.join(out_dir,
-                                    model_name + '_lastmodel_weights.h5') if args.lweightfile is None else args.lweightfile
-    eval_out_path = os.path.join(out_dir, model_name + '_eval.txt')
+
 
     # 加载数据
-    print(args)
     x_train, y_train = DataHelper.read_data(args.data_dir + "/train.h5.batch")
     x_valid, y_valid = DataHelper.read_data(args.data_dir + "/valid.h5.batch")
 
 
-
-
-    #
-    # 超参数搜索
-    #
-    if args.hyper:
-        # 搜索最优参数
-        hb = Hyperband(baseModel)
-        results = hb.search(x_train, y_train, x_valid, y_valid,
-                            skip_last=1)
-
-        # 保存最优参数到文件 architecture_file
-        best_result = sorted(results, key=lambda x: x['val_loss'])[0]
-        print(best_result)
-        json.dump(best_result['model'], open(architecture_file, 'w'))
-        json.dump(best_result["params"], open(optimizer_file, 'w'))
-
-    """
     #
     # 训练
     # -d batch_files -m ./models/EasyModel.py -te 1000  -pa 100 -t
     #
     if args.train:
-        model = load_saved_model()  # 加载模型
+        model = baseModel.get_model()
+        baseModel.train()
         model, history_callback = train_model(model, weight_file_out_path)  # 训练模型
         model.save_weights(last_weight_file, overwrite=True)  # 保存权重，覆盖旧权重
         # 保存训练数据到文件
@@ -130,6 +100,7 @@ if __name__ == "__main__":
         np.savetxt(os.path.join(out_dir, model_name + ".training_history.txt"), all_hist, delimiter="\t",
                    header='loss\tacc\tval_loss\tval_acc')
 
+"""
     elif args.retrain:
         #
         # 加载权重继续训练
@@ -138,6 +109,8 @@ if __name__ == "__main__":
         ### Resume training
         new_weight_file = weight_file_out_path + '.' + args.retrain
         new_last_weight_file = last_weight_file + '.' + args.retrain
+
+        model = baseModel.load_saved_model()  # 加载模型
 
         model = load_saved_model(args.rweightfile)
         model, history_callback = train_model(model, new_weight_file)
