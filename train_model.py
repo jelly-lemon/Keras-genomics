@@ -1,20 +1,9 @@
 from __future__ import print_function
 
 import argparse
-import h5py
 import os
-import pickle
-import shutil
-import sys
-import time
-from pprint import pprint
-import numpy as np
-from sklearn.metrics import accuracy_score, roc_auc_score
-
 import DataHelper
-from Hyperband import Hyperband
 from models.ModelHelper import *
-import json
 
 # 当前工作目录
 cwd = os.path.dirname(os.path.realpath(__file__))
@@ -25,36 +14,8 @@ def parse_args():
     解析命令行参数
     """
     parser = argparse.ArgumentParser(description="Keras + Hyperband for genomics")
-    parser.add_argument("--save_tag", dest="save_tag", default="", action='store_true', help="Output directory tag")
-    parser.add_argument("--hyper", dest="hyper", default=False, action='store_true',
-                        help="Perform hyper-parameter tuning")
-    parser.add_argument("-t", "--train", dest="train", default=True, action='store_true',
-                        help="Train on the training set with the best hyper-params")
-    parser.add_argument("-e", "--eval", dest="eval", default=False, action='store_true',
-                        help="Evaluate the model on the test set")
-    parser.add_argument("-p", "--predit", dest="infile", default='',
-                        help="Path to batch_files to predict on (up till batch number)")
-    parser.add_argument("-d", "--data_dir", dest="data_dir", default='./batch_files',
-                        help="The batch_files directory")
     parser.add_argument("-m", "--model_name", dest="model_name", help="Model name")
-    parser.add_argument("-o", "--out_dir", dest="out_dir", default='./saved_models',
-                        help="Model output directory")
-    parser.add_argument("-te", "--trainepoch", default=20, type=int, help="The number of epochs to train for")
-    parser.add_argument("-pa", "--patience", default=10, type=int,
-                        help="number of epochs with no improvement after which training will be stopped.")
-    parser.add_argument("-bs", "--batchsize", default=100, type=int, help="Batchsize in SGD-based training")
-    parser.add_argument("-w", "--weightfile", default=None, help="Weight file for the best model")
-    parser.add_argument("-l", "--lweightfile", default=None, help="Weight file after training")
-    parser.add_argument("-r", "--retrain", default=None, help="codename for the retrain run")
-    parser.add_argument("-rw", "--rweightfile", default='', help="Weight file to load for retraining")
-    parser.add_argument("-dm", "--data_mode", default='memory',
-                        help="whether to load batch_files into memory ('memory') or using a generator('generator')")
-    parser.add_argument("-ei", "--evalidx", dest='evalidx', default=0, type=int,
-                        help="which output neuron (0-based) to calculate 2-class auROC for")
-    parser.add_argument("--epochratio", default=1, type=float,
-                        help="when training with batch_files generator, optionally shrink each epoch size by this factor to enable more frequen evaluation on the valid set")
-    parser.add_argument("-shuf", default=1, type=int,
-                        help="whether to shuffle the batch_files at the begining of each epoch (1/0)")
+    parser.add_argument("-r", "--retrain", dest="retrain", default=False, action='store_true', help="whether retrain model")
 
     return parser.parse_args()
 
@@ -69,36 +30,22 @@ if __name__ == "__main__":
     # 解析命令行参数
     args = parse_args()
     print(args)
+    output_dir = "./saved_models"
+    data_dir = "./batch_files"
 
     # 加载模型
-    model_name = args.model_name
-    if model_name is None:
+    if args.model_name is None:
         raise Exception("please input model name")
-    baseModel = get_model(model_name, args.out_dir, args.save_tag)
-    out_dir = baseModel.save_dir
-
-
+    baseModel = get_model(args.model_name, output_dir, args.retrain)
 
     # 加载数据
-    x_train, y_train = DataHelper.read_data(args.data_dir + "/train.h5.batch")
-    x_valid, y_valid = DataHelper.read_data(args.data_dir + "/valid.h5.batch")
-
+    x_train, y_train = DataHelper.read_data(data_dir + "/train.h5.batch")
+    x_val, y_val = DataHelper.read_data(data_dir + "/valid.h5.batch")
 
     #
     # 训练
-    # -d batch_files -m ./models/EasyModel.py -te 1000  -pa 100 -t
     #
-    if args.train:
-        model = baseModel.get_model()
-        baseModel.train()
-        model, history_callback = train_model(model, weight_file_out_path)  # 训练模型
-        model.save_weights(last_weight_file, overwrite=True)  # 保存权重，覆盖旧权重
-        # 保存训练数据到文件
-        myhist = history_callback.history
-        all_hist = np.asarray([myhist["loss"], myhist["acc"], myhist["val_loss"],
-                               myhist["val_acc"]]).transpose()
-        np.savetxt(os.path.join(out_dir, model_name + ".training_history.txt"), all_hist, delimiter="\t",
-                   header='loss\tacc\tval_loss\tval_acc')
+    baseModel.train(x_train, y_train, x_val, y_val)
 
 """
     elif args.retrain:

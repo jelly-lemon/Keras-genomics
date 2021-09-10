@@ -7,25 +7,17 @@ from tensorflow_core.python.keras.optimizer_v2.adam import Adam
 
 from common_defs import *
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Activation, Conv2D, GlobalMaxPooling2D
+from tensorflow.keras.layers import Dense, Dropout, Activation, Conv2D, GlobalMaxPooling2D, BatchNormalization
 
 from models.BaseModel import BaseModel
 
 
-class EasyModel(BaseModel):
+class Model1(BaseModel):
     def __init__(self, save_dir: str, is_load_saved_model:bool=False):
         #
         # 超参数搜索空间
         #
         search_space = {
-            'dropout': hp.choice('dropout', (0.05, 0.1, 0.2)),
-            # 'DELTA': hp.choice('delta', (1e-04, 1e-06, 1e-08)),
-            # 'MOMENT': hp.choice('moment', (0.9, 0.99, 0.999)),
-            'batch_size': hp.choice('batch_size', (32,)),
-            'loss_func': hp.choice('loss_func', ('binary_crossentropy',)),
-            'optimizer': hp.choice('optimizer', ('Adam',)),
-            'activation': hp.choice('activation', ('softmax',)),
-            'optimizer_config': hp.choice('optimizer_config', ({},))
         }
         super().__init__(search_space, save_dir, is_load_saved_model)
 
@@ -49,7 +41,6 @@ class EasyModel(BaseModel):
         # 默认参数
         model_params = {
             "input_shape": (4, 1, 101),
-            "dropout": 0.2,
             "activation": "softmax",
             "loss_func": "categorical_crossentropy",
             "optimizer": Adam()
@@ -66,6 +57,7 @@ class EasyModel(BaseModel):
                          activation='relu'))  # input_shape 不包含 batch_size
         model.add(GlobalMaxPooling2D())
         model.add(Dense(32, activation='relu'))
+        model.add(BatchNormalization())
         model.add(Dropout(model_params["dropout"]))
         model.add(Dense(2))
         model.add(Activation(activation=model_params["activation"]))

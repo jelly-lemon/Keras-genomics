@@ -36,7 +36,7 @@ hyperopt 0.2.5	选择超参数
 
 # 文件类型说明
 - *.fa：FASTA 文件（原始数据文件，即从官网下载的数据，不带标签）
-- *.target：标签文件
+- *.target：标签文件（one-hot 形式）
 - *.tsv：FASTA 文件转的
 - *.h5.batch1：批文件（按 batch size 压缩的），用于训练
 
@@ -55,11 +55,3 @@ python embedH5.py train.tsv train.target batch_file/train.h5
 ```
 
 ## 运行模型
-```
-python main.py -d batch_file -m model.py -y -t -e
-```
--d: 数据目录
--m: 模型
--y: 进行超参数调整 
--t: 训练模型
--e: 评估模型

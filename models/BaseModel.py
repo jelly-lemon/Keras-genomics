@@ -17,14 +17,11 @@ class BaseModel:
     模型基类
     """
 
-    def __init__(self, search_space: dict, save_dir: str, save_tag: str = ""):
+    def __init__(self, search_space: dict, save_dir: str, is_load_saved_model:bool=False):
         self.search_space = search_space
 
         # 创建保存文件夹
-        if save_tag:
-            self.save_dir = save_dir + "/" + self.__class__.__name__ + "." + save_tag
-        else:
-            self.save_dir = save_dir + "/" + self.__class__.__name__
+        self.save_dir = save_dir + "/" + self.__class__.__name__
         if os.path.exists(self.save_dir):
             c = input(self.save_dir + "  exists" + ", delete it? [y/n] ")
             if c == "y":
@@ -40,8 +37,13 @@ class BaseModel:
         self.weight_path = self.save_dir + "/" + self.__class__.__name__ + '_weight.h5'
         self.eval_path = self.save_dir + "/" + self.__class__.__name__ + '_eval.txt'
 
+        if is_load_saved_model:
+            self.model = self._load_saved_model()
+        else:
+            self.model = self._get_model()
+
     @abstractmethod
-    def get_model(self, params: dict = None) -> Model:
+    def _get_model(self) -> Model:
         """
         获取模型
         """
@@ -72,7 +74,7 @@ class BaseModel:
         valid_epoch_step = val_samples / batch_size
         input_shape = train_gen.next()[0].shape[1:]
 
-        model = self.get_model(input_shape, params)
+        model = self._get_model(input_shape, params)
 
         model.fit_generator(
             train_gen,
@@ -90,8 +92,8 @@ class BaseModel:
     def train_by_gen(self):
         pass
 
-    def train(self, x_train, y_train, x_val, y_val,
-              params):
+    @abstractmethod
+    def train(self, x_train, y_train, x_val, y_val):
         """
         训练模型
 
@@ -99,49 +101,38 @@ class BaseModel:
         :param y_train:
         :param x_val:
         :param y_val:
-        :param params:
         :return:
         """
-        checkpoint = ModelCheckpoint(filepath=self.save_dir, verbose=1, save_best_only=True)
-        early_stopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0)
-        callbacks = [checkpoint, early_stopping]
 
-        return self._train_model(x_train, y_train, x_val, y_val, params, callbacks)
+
 
     def _train_model(self, x_train, y_train, x_val, y_val,
-                     params, callbacks):
+                     train_params, train_callbacks):
         """
         训练模型
+
+        train_params 需要提供：
+        batch_size
+        epochs
 
         :param x_train:
         :param y_train:
         :param x_val:
         :param y_val:
-        :param params:
-        :param callbacks:
+        :param train_params:
+        :param train_callbacks:
         :return:
         """
-        print("_train_model:", params)
-
-        # 获取模型
-        input_shape = x_train.shape[1:]
-        params["input_shape"] = input_shape
-        model = self.get_model(params)
-
         # 训练模型
-        history_callback = model.fit(
+        history_callback = self.model.fit(
             x_train, y_train,
-            batch_size=params['batch_size'],
-            epochs=params['epochs'],
+            batch_size=train_params['batch_size'],
+            epochs=train_params['epochs'],
             validation_data=(x_val, y_val),
-            callbacks=callbacks)
-        val_loss, val_acc = model.evaluate(x_val, y_val)
+            callbacks=train_callbacks)
+        val_loss, val_acc = self.model.evaluate(x_val, y_val)
 
-        result = {'val_loss': val_loss, 'val_acc': val_acc,
-                  'model': json.loads(model.to_json()),
-                  'params': params}
-
-        return result, history_callback
+        return history_callback
 
     def try_params(self, x_train, y_train, x_val, y_val,
                    params):
@@ -152,7 +143,7 @@ class BaseModel:
         callbacks = [early_stopping]
 
         result, history_callback = self._train_model(x_train, y_train, x_val, y_val,
-                                                     params=params, callbacks=callbacks)
+                                                     train_params=params, train_callbacks=callbacks)
 
         return result, history_callback
 
@@ -161,8 +152,8 @@ class BaseModel:
                                  val_gen=val_gen, val_samples=val_samples,
                                  epochs=epochs, batch_size=batch_size)
 
-    def load_saved_model(self, isLoadArchitecture: bool = True, isLoadWeight: bool = True,
-                         isLoadParams: bool = True) -> Model:
+    def _load_saved_model(self, isLoadArchitecture: bool = True, isLoadWeight: bool = True,
+                          isLoadParams: bool = True) -> Model:
         """
         加载保存的模型
 
@@ -182,7 +173,7 @@ class BaseModel:
                 model = model_from_json(open(self.architecture_path).read())
                 print("model_from_json succeed:", self.architecture_path)
             else:
-                model = self.get_model(params)
+                model = self._get_model(params)
                 print(self.architecture_path, "not exists, use default model")
 
         # 加载保存的权重
