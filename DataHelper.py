@@ -89,22 +89,20 @@ def read_data(data_prefix) -> tuple:
     """
     读取数据
 
-    :param self:
-    :param data_prefix:
+    :param data_prefix: 文件前缀，如 ./batch_files/train.h5.batch
     :return:
     """
-    allfiles = get_files_by_prefix(data_prefix)
+    all_files_path = get_files_by_prefix(data_prefix)
     batch_file_count = 0
-    sample_count = 0
-    for file_path in allfiles:
+    for file_path in all_files_path:
         print("load batch file:", file_path)
         if file_path.split(data_prefix)[1].isdigit():
             batch_file_count += 1
-            dataall = h5py.File(file_path, 'r')
+            h5_file = h5py.File(file_path, 'r')
             if batch_file_count == 1:
-                label = np.asarray(dataall['label'])
-                data = np.asarray(dataall['batch_file'])
+                label = np.asarray(h5_file['label'])
+                data = np.asarray(h5_file['batch_file'])
             else:
-                label = np.vstack((label, dataall['label']))
-                data = np.vstack((data, dataall['batch_file']))
+                label = np.vstack((label, h5_file['label']))
+                data = np.vstack((data, h5_file['batch_file']))
     return data, label

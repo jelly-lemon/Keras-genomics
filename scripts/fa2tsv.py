@@ -1,9 +1,9 @@
 def fa2tsv(fa_file_path, tsv_file_path):
     """
-    .fa 文件转 .tsv 文件
+    .fa(FASTA) 文件转 .tsv 文件
 
-    :param fa_file_path: .fa 文件路径 [in]
-    :param tsv_file_path: .tsv 文件路径 [out]
+    :param fa_file_path: .fa 文件输入路径
+    :param tsv_file_path: .tsv 文件保存路径
     """
     with open(fa_file_path, mode="r") as fa_file, open(tsv_file_path, mode="w") as tsv_file:
         line1 = fa_file.readline()
@@ -22,4 +22,4 @@ def fa2tsv(fa_file_path, tsv_file_path):
 
 
 if __name__ == '__main__':
-    fa2tsv("../row_data/test.fa", "row_data/test.tsv")
+    fa2tsv("../row_data/test.fa", "../row_data/test.tsv")
