@@ -57,7 +57,7 @@ def seq2onehot(seq: str) -> np.ndarray:
 
 
 def tsv2h5(seq_file_path: str, label_file_path: str, out_dir: str,
-           batch_file_size: int = 32 * 200):
+           batch_file_size: int = 32 * 200) -> int:
     """
     读取 tsv 并转存为 h5 文件
 
@@ -81,6 +81,7 @@ def tsv2h5(seq_file_path: str, label_file_path: str, out_dir: str,
         batch_num = 0
 
         # 将序列和标签合并在一起
+        # zip 两个文件，会按行返回
         for i, (seq, label) in enumerate(zip(seq_file, label_file)):
             sequences.append(list(seq.strip().split()[1]))
             labels.append(list(map(float, label.strip().split())))
@@ -104,10 +105,22 @@ def tsv2h5(seq_file_path: str, label_file_path: str, out_dir: str,
 
     return batch_num
 
+def parse_args():
+    """
+    解析命令行参数
+    """
+    parser = argparse.ArgumentParser(description="tsv2h5")
+
+    # Positional (unnamed) arguments:
+    parser.add_argument("tsv_file",  type=str, help="tsf file path")
+    parser.add_argument("label_file",  type=str,help="label file path")
+    parser.add_argument("out_dir",  type=str, help="output directory")
+
+    return parser.parse_args()
 
 if __name__ == "__main__":
     # 获取输出目录，不存在则创建
-    out_dir = "./test"
+    out_dir = "../row_data/batch_files"
     if not exists(out_dir):
         makedirs(out_dir)
 

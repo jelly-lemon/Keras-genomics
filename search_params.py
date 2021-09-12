@@ -64,7 +64,7 @@ if __name__ == "__main__":
         raise Exception("please input model name")
 
     # 加载模型
-    baseModel = get_model(model_name, args.out_dir, args.save_tag)
+    baseModel = get_base_model(model_name, args.out_dir, args.save_tag)
 
     # 获取输出目录
     out_dir = baseModel.save_dir

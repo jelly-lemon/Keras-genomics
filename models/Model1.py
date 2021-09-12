@@ -3,9 +3,9 @@
 """
 
 from tensorflow_core.python.keras import Model
+from tensorflow_core.python.keras.callbacks import ModelCheckpoint
 from tensorflow_core.python.keras.optimizer_v2.adam import Adam
 
-from common_defs import *
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Conv2D, GlobalMaxPooling2D, BatchNormalization
 
@@ -13,22 +13,17 @@ from models.BaseModel import BaseModel
 
 
 class Model1(BaseModel):
-    def __init__(self, save_dir: str, is_load_saved_model:bool=False):
-        #
-        # 超参数搜索空间
-        #
-        search_space = {
-        }
-        super().__init__(search_space, save_dir, is_load_saved_model)
+    def __init__(self, save_dir: str):
+        super().__init__(save_dir)
 
     def train(self, x_train, y_train, x_val, y_val):
-        # ModelCheckpoint(filepath=self.save_dir, verbose=1, save_best_only=True)
+        checkpoint = ModelCheckpoint(filepath=self.weight_path, verbose=1, save_best_only=True)
         # EarlyStopping(monitor='val_loss', patience=3, verbose=0)
-        callbacks = []
+        callbacks = [checkpoint]
 
         train_params = {
             "batch_size": 32,
-            "epochs": 10,
+            "epochs": 3,
         }
         print("train_params:", train_params)
 
@@ -58,7 +53,6 @@ class Model1(BaseModel):
         model.add(GlobalMaxPooling2D())
         model.add(Dense(32, activation='relu'))
         model.add(BatchNormalization())
-        model.add(Dropout(model_params["dropout"]))
         model.add(Dense(2))
         model.add(Activation(activation=model_params["activation"]))
 
