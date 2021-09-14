@@ -23,7 +23,7 @@ class Model1(BaseModel):
 
         train_params = {
             "batch_size": 32,
-            "epochs": 3,
+            "epochs": 200,
         }
         print("train_params:", train_params)
 

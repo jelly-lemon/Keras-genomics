@@ -1,0 +1,1385 @@
+所有序列的长度都为 101
+
+正样本数量：10231780 (1 kw)
+
+正样本数量(标签为1)   负样本数量(标签为0)   正/负
+wgEncodeAwgTfbsSydhGm12878WhipIggmusUniPk/train.data
+11046	11126	0.992810
+wgEncodeAwgTfbsHaibGm12878Nfatc1sc17834V0422111UniPk/train.data
+8495	8380	1.013723
+wgEncodeAwgTfbsSydhHek293Pol2UniPk/train.data
+8868	8972	0.988408
+wgEncodeAwgTfbsHaibGm12878P300Pcr1xUniPk/train.data
+4034	4018	1.003982
+wgEncodeAwgTfbsHaibGm12892Yy1V0416101UniPk/train.data
+12306	12457	0.987878
+wgEncodeAwgTfbsBroadH1hescChd1a301218aUniPk/train.data
+5654	5621	1.005871
+wgEncodeAwgTfbsSydhGm12878Rad21IggrabUniPk/train.data
+25514	25604	0.996485
+wgEncodeAwgTfbsHaibHepg2Sp2V0422111UniPk/train.data
+2085	2067	1.008708
+wgEncodeAwgTfbsHaibSknshraYy1sc281V0416102UniPk/train.data
+12189	12233	0.996403
+wgEncodeAwgTfbsHaibHct116Yy1sc281V0416101UniPk/train.data
+9998	10045	0.995321
+wgEncodeAwgTfbsSydhK562NelfeUniPk/train.data
+364	356	1.022472
+wgEncodeAwgTfbsBroadNhekPol2bUniPk/train.data
+4516	4530	0.996909
+wgEncodeAwgTfbsBroadK562P300UniPk/train.data
+2105	2099	1.002859
+wgEncodeAwgTfbsUwK562CtcfUniPk/train.data
+33548	33560	0.999642
+wgEncodeAwgTfbsBroadHuvecCtcfUniPk/train.data
+29058	29044	1.000482
+wgEncodeAwgTfbsHaibA549Fosl2V0422111Etoh02UniPk/train.data
+22355	22395	0.998214
+wgEncodeAwgTfbsHaibH1hescSix5Pcr1xUniPk/train.data
+2687	2647	1.015111
+wgEncodeAwgTfbsHaibT47dP300V0416102Dm002p1hUniPk/train.data
+10977	10992	0.998635
+wgEncodeAwgTfbsBroadHuvecPol2bUniPk/train.data
+4187	4147	1.009646
+wgEncodeAwgTfbsSydhHepg2Znf274UcdUniPk/train.data
+184	185	0.994595
+wgEncodeAwgTfbsSydhHek293tZnf263UcdUniPk/train.data
+23306	23273	1.001418
+wgEncodeAwgTfbsUwHuvecCtcfUniPk/train.data
+29555	29408	1.004999
+wgEncodeAwgTfbsUtaFibroblCtcfUniPk/train.data
+35689	35600	1.002500
+wgEncodeAwgTfbsBroadHsmmtEzh239875UniPk/train.data
+2152	2144	1.003731
+wgEncodeAwgTfbsSydhHepg2Grp20ForsklnUniPk/train.data
+472	476	0.991597
+wgEncodeAwgTfbsSydhHelas3CebpbIggrabUniPk/train.data
+47378	47514	0.997138
+wgEncodeAwgTfbsSydhHelas3Rpc155UniPk/train.data
+2045	2071	0.987446
+wgEncodeAwgTfbsSydhK562Mxi1af4185IggrabUniPk/train.data
+5318	5274	1.008343
+wgEncodeAwgTfbsBroadGm12878Ezh239875UniPk/train.data
+1971	1955	1.008184
+wgEncodeAwgTfbsSydhGm18526NfkbTnfaIggrabUniPk/train.data
+2395	2425	0.987629
+wgEncodeAwgTfbsHaibEcc1EraaV0416102Bpa1hUniPk/train.data
+3383	3383	1.000000
+wgEncodeAwgTfbsHaibK562Gata2sc267Pcr1xUniPk/train.data
+15080	15001	1.005266
+wgEncodeAwgTfbsSydhMcf10aesCmycTam14hHvdUniPk/train.data
+20275	20177	1.004857
+wgEncodeAwgTfbsSydhK562Irf1Ifna6hUniPk/train.data
+6542	6562	0.996952
+wgEncodeAwgTfbsHaibK562Yy1V0416101UniPk/train.data
+9882	9802	1.008162
+wgEncodeAwgTfbsSydhK562Pol2Ifng30UniPk/train.data
+12795	12883	0.993169
+wgEncodeAwgTfbsSydhK562E2f4UcdUniPk/train.data
+6423	6413	1.001559
+wgEncodeAwgTfbsSydhHelas3Smc3ab9263IggrabUniPk/train.data
+30709	30662	1.001533
+wgEncodeAwgTfbsHaibSknmcPol24h8V0416101UniPk/train.data
+18945	18955	0.999472
+wgEncodeAwgTfbsHaibGm12878Atf3Pcr1xUniPk/train.data
+1328	1315	1.009886
+wgEncodeAwgTfbsSydhHelas3Prdm19115IggrabUniPk/train.data
+3580	3570	1.002801
+wgEncodeAwgTfbsSydhHuvecMaxUniPk/train.data
+7214	7195	1.002641
+wgEncodeAwgTfbsHaibHuvecPol2Pcr1xUniPk/train.data
+15117	15019	1.006525
+wgEncodeAwgTfbsHaibK562Pol2V0416101UniPk/train.data
+16080	16081	0.999938
+wgEncodeAwgTfbsHaibHepg2Hnf4gsc6558V0416101UniPk/train.data
+16101	15969	1.008266
+wgEncodeAwgTfbsHaibGm12878Mef2csc13268V0416101UniPk/train.data
+7245	7222	1.003185
+wgEncodeAwgTfbsHaibEcc1Pol2V0416102Dm002p1hUniPk/train.data
+15167	15162	1.000330
+wgEncodeAwgTfbsHaibA549GrPcr1xDex5nmUniPk/train.data
+7994	8044	0.993784
+wgEncodeAwgTfbsHaibA549GrPcr1xDex500pmUniPk/train.data
+801	784	1.021684
+wgEncodeAwgTfbsSydhH1hescBrca1IggrabUniPk/train.data
+1585	1579	1.003800
+wgEncodeAwgTfbsSydhK562Atf3UniPk/train.data
+982	960	1.022917
+wgEncodeAwgTfbsUtaMcf7Pol2SerumstvdUniPk/train.data
+15081	15111	0.998015
+wgEncodeAwgTfbsSydhK562CjunIfna30UniPk/train.data
+6910	6970	0.991392
+wgEncodeAwgTfbsSydhGm12878Yy1UniPk/train.data
+1591	1601	0.993754
+wgEncodeAwgTfbsHaibHepg2RxraPcr1xUniPk/train.data
+13473	13426	1.003501
+wgEncodeAwgTfbsSydhK562Znf143IggrabUniPk/train.data
+22842	22812	1.001315
+wgEncodeAwgTfbsSydhGm10847NfkbTnfaIggrabUniPk/train.data
+7234	7311	0.989468
+wgEncodeAwgTfbsHaibHct116Pol24h8V0416101UniPk/train.data
+22086	22205	0.994641
+wgEncodeAwgTfbsSydhGm12878Stat1UniPk/train.data
+1418	1374	1.032023
+wgEncodeAwgTfbsHaibK562Egr1V0416101UniPk/train.data
+28963	28833	1.004509
+wgEncodeAwgTfbsSydhH1hescBach1sc14700IggrabUniPk/train.data
+9030	9032	0.999779
+wgEncodeAwgTfbsSydhH1hescSin3anb6001263IggrabUniPk/train.data
+16812	16885	0.995677
+wgEncodeAwgTfbsSydhK562NfyaUniPk/train.data
+3323	3363	0.988106
+wgEncodeAwgTfbsUchicagoK562EfosUniPk/train.data
+8064	8056	1.000993
+wgEncodeAwgTfbsSydhGm12878Ebf1sc137065UniPk/train.data
+25995	26003	0.999692
+wgEncodeAwgTfbsSydhK562Pol2Ifng6hUniPk/train.data
+12535	12615	0.993658
+wgEncodeAwgTfbsSydhGm12878MaxIggmusUniPk/train.data
+9872	9875	0.999696
+wgEncodeAwgTfbsSydhGm12878Pol2s2IggmusUniPk/train.data
+7327	7365	0.994840
+wgEncodeAwgTfbsSydhGm12878Zzz3UniPk/train.data
+542	541	1.001848
+wgEncodeAwgTfbsSydhK562Pol3UniPk/train.data
+165	163	1.012270
+wgEncodeAwgTfbsUwHek293CtcfUniPk/train.data
+36314	36409	0.997391
+wgEncodeAwgTfbsSydhHelas3Irf3IggrabUniPk/train.data
+1229	1230	0.999187
+wgEncodeAwgTfbsSydhK562Elk112771IggrabUniPk/train.data
+2317	2366	0.979290
+wgEncodeAwgTfbsSydhK562Tal1sc12984IggmusUniPk/train.data
+20327	20482	0.992432
+wgEncodeAwgTfbsSydhGm18505NfkbTnfaIggrabUniPk/train.data
+6903	6933	0.995673
+wgEncodeAwgTfbsUtaMcf7CmycSerumstvdUniPk/train.data
+5520	5513	1.001270
+wgEncodeAwgTfbsHaibHepg2Sp1Pcr1xUniPk/train.data
+19891	20061	0.991526
+wgEncodeAwgTfbsBroadHepg2Ezh239875UniPk/train.data
+2618	2617	1.000382
+wgEncodeAwgTfbsSydhNt2d1Znf274UcdUniPk/train.data
+522	513	1.017544
+wgEncodeAwgTfbsSydhK562Usf2IggrabUniPk/train.data
+2435	2403	1.013317
+wgEncodeAwgTfbsSydhH1hescRfx5200401194IggrabUniPk/train.data
+1318	1312	1.004573
+wgEncodeAwgTfbsBroadK562Pol2bUniPk/train.data
+8856	8843	1.001470
+wgEncodeAwgTfbsSydhK562P300IggrabUniPk/train.data
+20236	20189	1.002328
+wgEncodeAwgTfbsHaibK562GabpV0416101UniPk/train.data
+11191	11196	0.999553
+wgEncodeAwgTfbsSydhPbdefetalGata1UcdUniPk/train.data
+1725	1665	1.036036
+wgEncodeAwgTfbsSydhHepg2Smc3ab9263IggrabUniPk/train.data
+24010	24169	0.993421
+wgEncodeAwgTfbsHaibA549Ets1V0422111Etoh02UniPk/train.data
+4346	4313	1.007651
+wgEncodeAwgTfbsSydhHelas3Stat3IggrabUniPk/train.data
+10740	10823	0.992331
+wgEncodeAwgTfbsSydhMcf7Gata3UcdUniPk/train.data
+4793	4792	1.000209
+wgEncodeAwgTfbsSydhK562Setdb1MnasedUcdUniPk/train.data
+2346	2367	0.991128
+wgEncodeAwgTfbsSydhImr90CebpbIggrabUniPk/train.data
+54861	54851	1.000182
+wgEncodeAwgTfbsHaibH1hescPou5f1sc9081V0416102UniPk/train.data
+3131	3110	1.006752
+wgEncodeAwgTfbsBroadNhdfadCtcfUniPk/train.data
+37984	37867	1.003090
+wgEncodeAwgTfbsSydhH1hescMxi1IggrabUniPk/train.data
+5022	5059	0.992686
+wgEncodeAwgTfbsSydhH1hescCtbp2UcdUniPk/train.data
+5625	5603	1.003926
+wgEncodeAwgTfbsHaibHepg2Zbtb33Pcr1xUniPk/train.data
+2282	2233	1.021944
+wgEncodeAwgTfbsHaibGm12878Zeb1sc25388V0416102UniPk/train.data
+3833	3834	0.999739
+wgEncodeAwgTfbsSydhK562Tf3c110UniPk/train.data
+1487	1457	1.020590
+wgEncodeAwgTfbsHaibGm12878Rad21V0416101UniPk/train.data
+30945	30864	1.002624
+wgEncodeAwgTfbsHaibGm12878Mta3sc81325V0422111UniPk/train.data
+9420	9365	1.005873
+wgEncodeAwgTfbsBroadHelas3CtcfUniPk/train.data
+40493	40556	0.998447
+wgEncodeAwgTfbsSydhK562Tblr1ab24550IggrabUniPk/train.data
+4048	3990	1.014536
+wgEncodeAwgTfbsSydhMcf10aesStat3TamUniPk/train.data
+34662	34584	1.002255
+wgEncodeAwgTfbsSydhK562Corestsc30189IggrabUniPk/train.data
+28109	28102	1.000249
+wgEncodeAwgTfbsSydhGm12878Usf2IggmusUniPk/train.data
+7075	7059	1.002267
+wgEncodeAwgTfbsSydhHepg2P300sc582IggrabUniPk/train.data
+5255	5255	1.000000
+wgEncodeAwgTfbsSydhK562Pol2IggmusUniPk/train.data
+7901	7860	1.005216
+wgEncodeAwgTfbsSydhMcf10aesE2f4TamHvdUniPk/train.data
+12138	12090	1.003970
+wgEncodeAwgTfbsSydhU2osSetdb1UcdUniPk/train.data
+17608	17683	0.995759
+wgEncodeAwgTfbsHaibA549Yy1cV0422111Etoh02UniPk/train.data
+7789	7803	0.998206
+wgEncodeAwgTfbsHaibA549Taf1V0422111Etoh02UniPk/train.data
+7833	7858	0.996819
+wgEncodeAwgTfbsSydhK562Ubtfsab1404509IggmusUniPk/train.data
+10792	10846	0.995021
+wgEncodeAwgTfbsSydhK562Pol2UniPk/train.data
+13688	13728	0.997086
+wgEncodeAwgTfbsHaibEcc1EralphaaV0416102Gen1hUniPk/train.data
+9030	9067	0.995919
+wgEncodeAwgTfbsHaibGm12878Pmlsc71910V0422111UniPk/train.data
+12750	12725	1.001965
+wgEncodeAwgTfbsUtaHelas3CmycUniPk/train.data
+2223	2221	1.000900
+wgEncodeAwgTfbsHaibA549Ctcfsc5916Pcr1xDex100nmUniPk/train.data
+31557	31551	1.000190
+wgEncodeAwgTfbsSydhK562Gtf2bUniPk/train.data
+2271	2306	0.984822
+wgEncodeAwgTfbsUtaHelas3CtcfUniPk/train.data
+45459	45424	1.000771
+wgEncodeAwgTfbsSydhK562Corestab24166IggrabUniPk/train.data
+5001	5071	0.986196
+wgEncodeAwgTfbsSydhH1hescTbpIggrabUniPk/train.data
+13440	13499	0.995629
+wgEncodeAwgTfbsHaibSknshTaf1V0416101UniPk/train.data
+11002	10906	1.008802
+wgEncodeAwgTfbsSydhGm12878CfosUniPk/train.data
+1749	1739	1.005750
+wgEncodeAwgTfbsHaibEcc1EralphaaV0416102Est10nm1hUniPk/train.data
+12735	12642	1.007356
+wgEncodeAwgTfbsSydhGm12878P300IggmusUniPk/train.data
+13620	13720	0.992711
+wgEncodeAwgTfbsSydhGm12878Rfx5200401194IggmusUniPk/train.data
+3407	3375	1.009481
+wgEncodeAwgTfbsSydhHelas3Usf2IggmusUniPk/train.data
+9591	9620	0.996985
+wgEncodeAwgTfbsBroadK562Sap3039731UniPk/train.data
+7703	7709	0.999222
+wgEncodeAwgTfbsSydhH1hescUsf2IggrabUniPk/train.data
+5443	5473	0.994519
+wgEncodeAwgTfbsHaibA549Pol2Pcr2xDex100nmUniPk/train.data
+19301	19291	1.000518
+wgEncodeAwgTfbsSydhGm18951NfkbTnfaIggrabUniPk/train.data
+10604	10655	0.995214
+wgEncodeAwgTfbsHaibGm12878Runx3sc101553V0422111UniPk/train.data
+52691	52701	0.999810
+wgEncodeAwgTfbsUtaGm12878Pol2UniPk/train.data
+11117	11111	1.000540
+wgEncodeAwgTfbsSydhK562Gata2UcdUniPk/train.data
+8323	8326	0.999640
+wgEncodeAwgTfbsSydhHelas3Mazab85725IggrabUniPk/train.data
+10472	10464	1.000765
+wgEncodeAwgTfbsHaibGm12892Taf1V0416102UniPk/train.data
+7381	7395	0.998107
+wgEncodeAwgTfbsUwNhlfCtcfUniPk/train.data
+27509	27547	0.998621
+wgEncodeAwgTfbsHaibSknshPol24h8V0416101UniPk/train.data
+21823	21799	1.001101
+wgEncodeAwgTfbsHaibHepg2Rad21V0416101UniPk/train.data
+42232	42305	0.998274
+wgEncodeAwgTfbsSydhHepg2Corestsc30189IggrabUniPk/train.data
+4271	4244	1.006362
+wgEncodeAwgTfbsSydhImr90Pol2IggrabUniPk/train.data
+13090	12913	1.013707
+wgEncodeAwgTfbsSydhK562Brg1IggmusUniPk/train.data
+1964	1936	1.014463
+wgEncodeAwgTfbsBroadDnd41Ezh239875UniPk/train.data
+1328	1353	0.981523
+wgEncodeAwgTfbsSydhK562Sirt6UniPk/train.data
+1823	1799	1.013341
+wgEncodeAwgTfbsUwGm06990CtcfUniPk/train.data
+35226	35078	1.004219
+wgEncodeAwgTfbsUtaGm12878CtcfUniPk/train.data
+37790	37746	1.001166
+wgEncodeAwgTfbsSydhHelas3MafkIggrabUniPk/train.data
+11092	11042	1.004528
+wgEncodeAwgTfbsBroadGm12878CtcfUniPk/train.data
+34753	34682	1.002047
+wgEncodeAwgTfbsSydhGm12878Mxi1IggmusUniPk/train.data
+13892	13973	0.994203
+wgEncodeAwgTfbsSydhHct116Tcf7l2UcdUniPk/train.data
+15235	15291	0.996338
+wgEncodeAwgTfbsSydhGm12878Bhlhe40cIggmusUniPk/train.data
+10953	10962	0.999179
+wgEncodeAwgTfbsHaibH1hescJundV0416102UniPk/train.data
+6668	6661	1.001051
+wgEncodeAwgTfbsSydhHelas3Chd2IggrabUniPk/train.data
+15896	15969	0.995429
+wgEncodeAwgTfbsUtaGm12891CtcfUniPk/train.data
+33389	33231	1.004755
+wgEncodeAwgTfbsHaibPanc1NrsfPcr2xUniPk/train.data
+4352	4312	1.009276
+wgEncodeAwgTfbsSydhGm12878Znf143166181apUniPk/train.data
+15621	15625	0.999744
+wgEncodeAwgTfbsSydhGm19193Pol2IggmusUniPk/train.data
+15704	15779	0.995247
+wgEncodeAwgTfbsSydhK562Mazab85725IggrabUniPk/train.data
+26159	26082	1.002952
+wgEncodeAwgTfbsHaibK562Yy1V0416102UniPk/train.data
+18598	18698	0.994652
+wgEncodeAwgTfbsSydhK562CmycIggrabUniPk/train.data
+18893	18895	0.999894
+wgEncodeAwgTfbsSydhHelas3Tcf7l2UcdUniPk/train.data
+2422	2480	0.976613
+wgEncodeAwgTfbsHaibGm12878Zbtb33Pcr1xUniPk/train.data
+1668	1679	0.993448
+wgEncodeAwgTfbsSydhK562Atf106325UniPk/train.data
+11553	11642	0.992355
+wgEncodeAwgTfbsBroadNhdfadEzh239875UniPk/train.data
+4169	4245	0.982097
+wgEncodeAwgTfbsSydhHelas3Bdp1UniPk/train.data
+398	400	0.995000
+wgEncodeAwgTfbsUwHcpeCtcfUniPk/train.data
+47329	47503	0.996337
+wgEncodeAwgTfbsHaibH1hescSp1Pcr1xUniPk/train.data
+11833	11815	1.001523
+wgEncodeAwgTfbsSydhHepg2Mafkab50322IggrabUniPk/train.data
+48345	48435	0.998142
+wgEncodeAwgTfbsHaibH1hescYy1sc281V0416102UniPk/train.data
+14357	14315	1.002934
+wgEncodeAwgTfbsSydhHelas3CjunIggrabUniPk/train.data
+17057	17032	1.001468
+wgEncodeAwgTfbsHaibA549Creb1sc240V0416102Dex100nmUniPk/train.data
+12435	12477	0.996634
+wgEncodeAwgTfbsUtaMcf7CtcfVehUniPk/train.data
+63441	63520	0.998756
+wgEncodeAwgTfbsUtaA549Pol2UniPk/train.data
+13267	13150	1.008897
+wgEncodeAwgTfbsHaibGm12891Pax5c20V0416101UniPk/train.data
+2497	2482	1.006044
+wgEncodeAwgTfbsSydhNb4CmycUniPk/train.data
+20572	20679	0.994826
+wgEncodeAwgTfbsHaibA549Bcl3V0422111Etoh02UniPk/train.data
+5998	6048	0.991733
+wgEncodeAwgTfbsSydhHepg2Nrf1IggrabUniPk/train.data
+1494	1485	1.006061
+wgEncodeAwgTfbsHaibK562Elf1sc631V0416102UniPk/train.data
+21787	21616	1.007911
+wgEncodeAwgTfbsSydhK562CmycIfng6hUniPk/train.data
+15175	15023	1.010118
+wgEncodeAwgTfbsHaibH1hescEgr1V0416102UniPk/train.data
+6853	6945	0.986753
+wgEncodeAwgTfbsSydhK562Rad21UniPk/train.data
+13680	13686	0.999562
+wgEncodeAwgTfbsSydhH1hescJundIggrabUniPk/train.data
+7532	7487	1.006010
+wgEncodeAwgTfbsHaibK562Tead4sc101184V0422111UniPk/train.data
+24181	24191	0.999587
+wgEncodeAwgTfbsHaibA549GrPcr2xDex100nmUniPk/train.data
+13099	13101	0.999847
+wgEncodeAwgTfbsSydhHelas3Rad21IggrabUniPk/train.data
+33590	33528	1.001849
+wgEncodeAwgTfbsSydhMcf7Hae2f1UcdUniPk/train.data
+15377	15327	1.003262
+wgEncodeAwgTfbsSydhMcf10aesPol2Etoh01UniPk/train.data
+15634	15676	0.997321
+wgEncodeAwgTfbsSydhHelas3Ap2alphaUniPk/train.data
+14774	14802	0.998108
+wgEncodeAwgTfbsHaibK562Taf1V0416101UniPk/train.data
+11726	11702	1.002051
+wgEncodeAwgTfbsSydhMcf10aesStat3Etoh01cUniPk/train.data
+32324	32263	1.001891
+wgEncodeAwgTfbsSydhHelas3Brf2UniPk/train.data
+242	239	1.012552
+wgEncodeAwgTfbsSydhRajiPol2UcdUniPk/train.data
+14042	14146	0.992648
+wgEncodeAwgTfbsSydhHelas3JundIggrabUniPk/train.data
+24647	24554	1.003788
+wgEncodeAwgTfbsHaibHepg2Foxa1sc101058V0416101UniPk/train.data
+33729	33821	0.997280
+wgEncodeAwgTfbsSydhHepg2JundIggrabUniPk/train.data
+25448	25430	1.000708
+wgEncodeAwgTfbsHaibHelas3GabpPcr1xUniPk/train.data
+5231	5263	0.993920
+wgEncodeAwgTfbsSydhHelas3MaxIggrabUniPk/train.data
+23129	23080	1.002123
+wgEncodeAwgTfbsHaibGm12878Atf2sc81188V0422111UniPk/train.data
+18275	18275	1.000000
+wgEncodeAwgTfbsSydhK562Bhlhe40nb100IggrabUniPk/train.data
+17610	17641	0.998243
+wgEncodeAwgTfbsSydhA549CebpbIggrabUniPk/train.data
+30409	30336	1.002406
+wgEncodeAwgTfbsHaibHepg2Sin3ak20Pcr1xUniPk/train.data
+13007	13044	0.997163
+wgEncodeAwgTfbsHaibK562Six5Pcr1xUniPk/train.data
+3270	3267	1.000918
+wgEncodeAwgTfbsHaibHepg2Yy1sc281V0416101UniPk/train.data
+14065	13879	1.013402
+wgEncodeAwgTfbsSydhMcf10aesCfosTamHvdUniPk/train.data
+54707	54747	0.999269
+wgEncodeAwgTfbsUtaMcf7CtcfSerumstimUniPk/train.data
+45511	45985	0.989692
+wgEncodeAwgTfbsBroadHelas3Ezh239875UniPk/train.data
+1404	1436	0.977716
+wgEncodeAwgTfbsHaibHepg2Pol2Pcr2xUniPk/train.data
+18967	19010	0.997738
+wgEncodeAwgTfbsHaibA549Usf1Pcr1xEtoh02UniPk/train.data
+9313	9384	0.992434
+wgEncodeAwgTfbsSydhK562E2f6UcdUniPk/train.data
+12623	12530	1.007422
+wgEncodeAwgTfbsHaibGm12892Pax5c20V0416101UniPk/train.data
+8076	8208	0.983918
+wgEncodeAwgTfbsSydhK562Pol2Ifna6hUniPk/train.data
+10586	10471	1.010983
+wgEncodeAwgTfbsSydhGm12878Tblr1ab24550IggmusUniPk/train.data
+10732	10727	1.000466
+wgEncodeAwgTfbsSydhMcf10aesCfosTam112hHvdUniPk/train.data
+71850	71575	1.003842
+wgEncodeAwgTfbsSydhH1hescMafkIggrabUniPk/train.data
+8969	8925	1.004930
+wgEncodeAwgTfbsSydhGm19193NfkbTnfaIggrabUniPk/train.data
+4193	4119	1.017966
+wgEncodeAwgTfbsHaibT47dEraaV0416102Bpa1hUniPk/train.data
+3097	3015	1.027197
+wgEncodeAwgTfbsSydhHepg2Srebp1InslnUniPk/train.data
+2041	2040	1.000490
+wgEncodeAwgTfbsHaibH1hescCtcfsc5916V0416102UniPk/train.data
+42016	42008	1.000190
+wgEncodeAwgTfbsUtaGm19240CtcfUniPk/train.data
+35702	35728	0.999272
+wgEncodeAwgTfbsHaibHepg2Bhlhe40V0416101UniPk/train.data
+2268	2263	1.002209
+wgEncodeAwgTfbsSydhH1hescZnf143IggrabUniPk/train.data
+24210	24316	0.995641
+wgEncodeAwgTfbsUtaGlioblaPol2UniPk/train.data
+13587	13557	1.002213
+wgEncodeAwgTfbsHaibGm12891Pou2f2Pcr1xUniPk/train.data
+11581	11487	1.008183
+wgEncodeAwgTfbsHaibK562Cebpbsc150V0422111UniPk/train.data
+17353	17394	0.997643
+wgEncodeAwgTfbsSydhK562CjunUniPk/train.data
+7788	7672	1.015120
+wgEncodeAwgTfbsSydhH1hescCjunIggrabUniPk/train.data
+1682	1718	0.979045
+wgEncodeAwgTfbsSydhK562Tr4UcdUniPk/train.data
+444	480	0.925000
+wgEncodeAwgTfbsHaibGm12878RxraPcr1xUniPk/train.data
+1359	1338	1.015695
+wgEncodeAwgTfbsSydhShsy5yGata3sc269sc269UcdUniPk/train.data
+12440	12508	0.994563
+wgEncodeAwgTfbsSydhGm15510Pol2IggmusUniPk/train.data
+13716	13687	1.002119
+wgEncodeAwgTfbsSydhHelas3Tf3c110UniPk/train.data
+2029	2041	0.994121
+wgEncodeAwgTfbsSydhHelas3Tcf7l2c9b92565UcdUniPk/train.data
+14849	14946	0.993510
+wgEncodeAwgTfbsSydhHuvecPol2UniPk/train.data
+9540	9557	0.998221
+wgEncodeAwgTfbsUtaK562CtcfUniPk/train.data
+43374	43434	0.998619
+wgEncodeAwgTfbsHaibGm12878Irf4sc6059Pcr1xUniPk/train.data
+13899	13966	0.995203
+wgEncodeAwgTfbsBroadHelas3Pol2bUniPk/train.data
+2385	2394	0.996241
+wgEncodeAwgTfbsHaibHepg2Tead4sc101184V0422111UniPk/train.data
+11933	11919	1.001175
+wgEncodeAwgTfbsSydhHepg2CebpbForsklnUniPk/train.data
+14495	14517	0.998485
+wgEncodeAwgTfbsHaibGm12891Pol24h8Pcr1xUniPk/train.data
+12314	12287	1.002197
+wgEncodeAwgTfbsSydhGm12878P300bUniPk/train.data
+4880	4817	1.013079
+wgEncodeAwgTfbsHaibA549NrsfV0422111Etoh02UniPk/train.data
+9267	9347	0.991441
+wgEncodeAwgTfbsSydhK562Stat1Ifng30UniPk/train.data
+1714	1718	0.997672
+wgEncodeAwgTfbsSydhH1hescChd2IggrabUniPk/train.data
+5383	5380	1.000558
+wgEncodeAwgTfbsHaibGm12892Pol2V0416102UniPk/train.data
+14593	14699	0.992789
+wgEncodeAwgTfbsSydhA549Pol2s2IggrabUniPk/train.data
+2609	2672	0.976422
+wgEncodeAwgTfbsHaibK562Stat5asc74442V0422111UniPk/train.data
+7571	7699	0.983374
+wgEncodeAwgTfbsSydhHepg2Mxi1UniPk/train.data
+16088	16131	0.997334
+wgEncodeAwgTfbsSydhGm12891NfkbTnfaIggrabUniPk/train.data
+22489	22543	0.997605
+wgEncodeAwgTfbsSydhNb4MaxUniPk/train.data
+27209	27229	0.999265
+wgEncodeAwgTfbsHaibA549Pol2Pcr2xEtoh02UniPk/train.data
+19375	19261	1.005919
+wgEncodeAwgTfbsHaibGm12892Pol24h8V0416102UniPk/train.data
+12926	12848	1.006071
+wgEncodeAwgTfbsSydhK562Nrf1IggrabUniPk/train.data
+3249	3295	0.986039
+wgEncodeAwgTfbsSydhGm12878NfyaIggmusUniPk/train.data
+1445	1435	1.006969
+wgEncodeAwgTfbsHaibK562MaxV0416102UniPk/train.data
+34919	35314	0.988815
+wgEncodeAwgTfbsHaibH1hescUsf1Pcr1xUniPk/train.data
+20517	20358	1.007810
+wgEncodeAwgTfbsHaibHepg2Zbtb7aV0416101UniPk/train.data
+7310	7275	1.004811
+wgEncodeAwgTfbsSydhGm12878JundUniPk/train.data
+1974	1918	1.029197
+wgEncodeAwgTfbsSydhK562CjunIfna6hUniPk/train.data
+4100	4106	0.998539
+wgEncodeAwgTfbsSydhK562Setdb1UcdUniPk/train.data
+3060	3052	1.002621
+wgEncodeAwgTfbsHaibH1hescBcl11aPcr1xUniPk/train.data
+1981	1979	1.001011
+wgEncodeAwgTfbsBroadK562Plu1UniPk/train.data
+12121	12002	1.009915
+wgEncodeAwgTfbsSydhMcf7Gata3sc269UcdUniPk/train.data
+9436	9538	0.989306
+wgEncodeAwgTfbsUtaHelas3Pol2UniPk/train.data
+12118	12224	0.991329
+wgEncodeAwgTfbsSydhH1hescChd1a301218aIggrabUniPk/train.data
+1714	1722	0.995354
+wgEncodeAwgTfbsSydhK562Arid3asc8821IggrabUniPk/train.data
+7033	7192	0.977892
+wgEncodeAwgTfbsSydhK562Hmgn3UniPk/train.data
+11453	11465	0.998953
+wgEncodeAwgTfbsHaibGm12878Stat5asc74442V0422111UniPk/train.data
+5817	5824	0.998798
+wgEncodeAwgTfbsSydhMcf10aesCfosTam14hHvdUniPk/train.data
+67066	67014	1.000776
+wgEncodeAwgTfbsSydhGm12878Corestsc30189IggmusUniPk/train.data
+1116	1080	1.033333
+wgEncodeAwgTfbsSydhHepg2Pol2s2IggrabUniPk/train.data
+3175	3258	0.974524
+wgEncodeAwgTfbsHaibK562Nr2f2sc271940V0422111UniPk/train.data
+13030	13075	0.996558
+wgEncodeAwgTfbsSydhK562Brf2UniPk/train.data
+862	875	0.985143
+wgEncodeAwgTfbsHaibGm12891Pu1Pcr1xUniPk/train.data
+38141	38023	1.003103
+wgEncodeAwgTfbsSydhHek293Tcf7l2UcdUniPk/train.data
+6733	6785	0.992336
+wgEncodeAwgTfbsHaibK562Pmlsc71910V0422111UniPk/train.data
+12311	12385	0.994025
+wgEncodeAwgTfbsUwWi38CtcfUniPk/train.data
+24393	24483	0.996324
+wgEncodeAwgTfbsSydhHepg2Tr4UcdUniPk/train.data
+2305	2341	0.984622
+wgEncodeAwgTfbsUwAg09309CtcfUniPk/train.data
+33969	34005	0.998941
+wgEncodeAwgTfbsSydhGm12878Nrf1IggmusUniPk/train.data
+4414	4421	0.998417
+wgEncodeAwgTfbsUwGm12801CtcfUniPk/train.data
+2297	2307	0.995665
+wgEncodeAwgTfbsUwAoafCtcfUniPk/train.data
+35464	35707	0.993195
+wgEncodeAwgTfbsHaibT47dEralphaaV0416102Est10nm1hUniPk/train.data
+8235	8232	1.000364
+wgEncodeAwgTfbsSydhMcf10aesStat3Etoh01bUniPk/train.data
+35281	35130	1.004298
+wgEncodeAwgTfbsUwAg04450CtcfUniPk/train.data
+36124	36138	0.999613
+wgEncodeAwgTfbsHaibGm12878Tcf3Pcr1xUniPk/train.data
+12573	12625	0.995881
+wgEncodeAwgTfbsHaibK562Rad21V0416102UniPk/train.data
+27010	26996	1.000519
+wgEncodeAwgTfbsSydhNb4Pol2UniPk/train.data
+12726	12840	0.991121
+wgEncodeAwgTfbsSydhK562Smc3ab9263IggrabUniPk/train.data
+18503	18287	1.011812
+wgEncodeAwgTfbsUtaNhekCtcfUniPk/train.data
+41811	41766	1.001077
+wgEncodeAwgTfbsSydhHepg2Mazab85725IggrabUniPk/train.data
+9581	9572	1.000940
+wgEncodeAwgTfbsSydhHelas3Brg1IggmusUniPk/train.data
+1094	1034	1.058027
+wgEncodeAwgTfbsSydhGm12878Nfe2sc22827UniPk/train.data
+607	602	1.008306
+wgEncodeAwgTfbsHaibT47dGata3sc268V0416102Dm002p1hUniPk/train.data
+29070	29222	0.994798
+wgEncodeAwgTfbsUwGm12865CtcfUniPk/train.data
+34182	34264	0.997607
+wgEncodeAwgTfbsSydhMcf10aesStat3Tam112hHvdUniPk/train.data
+31109	31156	0.998491
+wgEncodeAwgTfbsUtaGm19238CtcfUniPk/train.data
+38773	38700	1.001886
+wgEncodeAwgTfbsHaibHepg2SrfV0416101UniPk/train.data
+4203	4169	1.008155
+wgEncodeAwgTfbsSydhK562Pol2Ifna30UniPk/train.data
+10747	10709	1.003548
+wgEncodeAwgTfbsSydhK562Irf1Ifng6hUniPk/train.data
+9818	9850	0.996751
+wgEncodeAwgTfbsHaibK562NrsfV0416102UniPk/train.data
+12370	12511	0.988730
+wgEncodeAwgTfbsHaibGm12878Yy1sc281Pcr1xUniPk/train.data
+24010	24132	0.994944
+wgEncodeAwgTfbsHaibK562Pu1Pcr1xUniPk/train.data
+22347	22413	0.997055
+wgEncodeAwgTfbsUwGm12873CtcfUniPk/train.data
+39380	39336	1.001119
+wgEncodeAwgTfbsSydhHuvecCjunUniPk/train.data
+23077	23051	1.001128
+wgEncodeAwgTfbsSydhK562CfosUniPk/train.data
+5985	5983	1.000334
+wgEncodeAwgTfbsHaibU87NrsfPcr2xUniPk/train.data
+9330	9310	1.002148
+wgEncodeAwgTfbsBroadHsmmtCtcfUniPk/train.data
+37327	37077	1.006743
+wgEncodeAwgTfbsSydhGm12892NfkbTnfaIggrabUniPk/train.data
+6423	6442	0.997051
+wgEncodeAwgTfbsUtaA549CtcfUniPk/train.data
+42969	42951	1.000419
+wgEncodeAwgTfbsSydhPbdePol2UcdUniPk/train.data
+11744	11710	1.002904
+wgEncodeAwgTfbsHaibK562Usf1V0416101UniPk/train.data
+14519	14517	1.000138
+wgEncodeAwgTfbsSydhHelas3Baf155IggmusUniPk/train.data
+6809	6783	1.003833
+wgEncodeAwgTfbsUtaProgfibPol2UniPk/train.data
+12717	12675	1.003314
+wgEncodeAwgTfbsSydhH1hescCmycIggrabUniPk/train.data
+3587	3637	0.986252
+wgEncodeAwgTfbsUwHbmecCtcfUniPk/train.data
+45231	45431	0.995598
+wgEncodeAwgTfbsSydhK562MaxIggrabUniPk/train.data
+24653	24646	1.000284
+wgEncodeAwgTfbsSydhGm12878Mazab85725IggmusUniPk/train.data
+14837	14841	0.999730
+wgEncodeAwgTfbsUtaH1hescCtcfUniPk/train.data
+33756	33845	0.997370
+wgEncodeAwgTfbsHaibHuvecPol24h8V0416101UniPk/train.data
+25501	25449	1.002043
+wgEncodeAwgTfbsSydhHelas3Brca1a300IggrabUniPk/train.data
+6310	6312	0.999683
+wgEncodeAwgTfbsUwHeeCtcfUniPk/train.data
+35766	35834	0.998102
+wgEncodeAwgTfbsSydhHelas3TbpIggrabUniPk/train.data
+14373	14345	1.001952
+wgEncodeAwgTfbsSydhK562Nfe2UniPk/train.data
+2078	2061	1.008248
+wgEncodeAwgTfbsHaibHepg2NrsfV0416101UniPk/train.data
+10025	9962	1.006324
+wgEncodeAwgTfbsSydhGm12891Pol2IggmusUniPk/train.data
+15589	15607	0.998847
+wgEncodeAwgTfbsHaibSknshNrsfPcr2xUniPk/train.data
+14829	14996	0.988864
+wgEncodeAwgTfbsSydhK562Rfx5IggrabUniPk/train.data
+1744	1710	1.019883
+wgEncodeAwgTfbsSydhK562Stat1Ifna30UniPk/train.data
+1190	1176	1.011905
+wgEncodeAwgTfbsSydhK562TbpIggmusUniPk/train.data
+13654	13691	0.997297
+wgEncodeAwgTfbsSydhNt2d1Yy1UcdUniPk/train.data
+3690	3775	0.977483
+wgEncodeAwgTfbsSydhHelas3E2f1UniPk/train.data
+3998	3968	1.007560
+wgEncodeAwgTfbsSydhGm12878E2f4IggmusUniPk/train.data
+2721	2690	1.011524
+wgEncodeAwgTfbsSydhHelas3Mxi1af4185IggrabUniPk/train.data
+9397	9430	0.996501
+wgEncodeAwgTfbsSydhGm15510NfkbTnfaIggrabUniPk/train.data
+10052	10071	0.998113
+wgEncodeAwgTfbsUwAg04449CtcfUniPk/train.data
+39085	39067	1.000461
+wgEncodeAwgTfbsSydhHelas3Znf143IggrabUniPk/train.data
+5506	5551	0.991893
+wgEncodeAwgTfbsHaibGm12878Bclaf101388V0416101UniPk/train.data
+4804	4816	0.997508
+wgEncodeAwgTfbsSydhHelas3Brf1UniPk/train.data
+151	154	0.980519
+wgEncodeAwgTfbsHaibH1hescNanogsc33759V0416102UniPk/train.data
+4249	4275	0.993918
+wgEncodeAwgTfbsUtaK562CmycUniPk/train.data
+9205	9283	0.991598
+wgEncodeAwgTfbsUwSaecCtcfUniPk/train.data
+32921	32944	0.999302
+wgEncodeAwgTfbsHaibGm12878Elf1sc631V0416101UniPk/train.data
+17857	17827	1.001683
+wgEncodeAwgTfbsHaibA549Foxa1V0416102Dex100nmUniPk/train.data
+6009	6045	0.994045
+wgEncodeAwgTfbsSydhHepg2Bhlhe40cIggrabUniPk/train.data
+11519	11561	0.996367
+wgEncodeAwgTfbsSydhHelas3Zkscan1hpa006672IggrabUniPk/train.data
+3219	3275	0.982901
+wgEncodeAwgTfbsUwHffmycCtcfUniPk/train.data
+34158	34016	1.004175
+wgEncodeAwgTfbsHaibH1hescPol2V0416102UniPk/train.data
+14127	14109	1.001276
+wgEncodeAwgTfbsHaibK562Ctcflsc98982V0416101UniPk/train.data
+9051	9024	1.002992
+wgEncodeAwgTfbsSydhShsy5yGata2UcdUniPk/train.data
+27935	28001	0.997643
+wgEncodeAwgTfbsUwHreCtcfUniPk/train.data
+32684	32900	0.993435
+wgEncodeAwgTfbsBroadNhekCtcfUniPk/train.data
+36566	36389	1.004864
+wgEncodeAwgTfbsSydhHelas3Tr4UniPk/train.data
+1642	1652	0.993947
+wgEncodeAwgTfbsHaibGm12878Pax5n19Pcr1xUniPk/train.data
+15487	15525	0.997552
+wgEncodeAwgTfbsHaibH1hescTaf1V0416102UniPk/train.data
+15300	15341	0.997327
+wgEncodeAwgTfbsSydhK562CmycUniPk/train.data
+3947	3953	0.998482
+wgEncodeAwgTfbsSydhK562Chd2ab68301IggrabUniPk/train.data
+6107	6101	1.000983
+wgEncodeAwgTfbsSydhGm12878Brca1a300IggmusUniPk/train.data
+422	427	0.988290
+wgEncodeAwgTfbsHaibGm12878Tcf12Pcr1xUniPk/train.data
+15948	16116	0.989576
+wgEncodeAwgTfbsSydhHelas3Gtf2f1ab28179IggrabUniPk/train.data
+9131	9184	0.994229
+wgEncodeAwgTfbsBroadHepg2CtcfUniPk/train.data
+36196	36128	1.001882
+wgEncodeAwgTfbsHaibK562Sp2sc643V0416102UniPk/train.data
+2428	2434	0.997535
+wgEncodeAwgTfbsSydhHek293Kap1UcdUniPk/train.data
+15267	15205	1.004078
+wgEncodeAwgTfbsHaibA549Sin3ak20V0422111Etoh02UniPk/train.data
+4765	4751	1.002947
+wgEncodeAwgTfbsUwHpfCtcfUniPk/train.data
+35718	35957	0.993353
+wgEncodeAwgTfbsSydhHek293Elk4UcdUniPk/train.data
+1061	1071	0.990663
+wgEncodeAwgTfbsUwA549CtcfUniPk/train.data
+35461	35273	1.005330
+wgEncodeAwgTfbsSydhK562Ccnt2UniPk/train.data
+15647	15692	0.997132
+wgEncodeAwgTfbsHaibT47dCtcfsc5916V0416102Dm002p1hUniPk/train.data
+22884	22804	1.003508
+wgEncodeAwgTfbsBroadK562Hdac1sc6298UniPk/train.data
+9418	9324	1.010082
+wgEncodeAwgTfbsUtaGm12878CmycUniPk/train.data
+2923	2907	1.005504
+wgEncodeAwgTfbsHaibH1hescHdac2sc6296V0416102UniPk/train.data
+4472	4481	0.997992
+wgEncodeAwgTfbsHaibGm12891Pol2Pcr1xUniPk/train.data
+12659	12595	1.005081
+wgEncodeAwgTfbsSydhHepg2Chd2ab68301IggrabUniPk/train.data
+4063	4063	1.000000
+wgEncodeAwgTfbsBroadK562Ezh239875UniPk/train.data
+1366	1318	1.036419
+wgEncodeAwgTfbsHaibGm12878Pou2f2Pcr1xUniPk/train.data
+17967	17882	1.004753
+wgEncodeAwgTfbsBroadH1hescJarid1aab26049UniPk/train.data
+1282	1281	1.000781
+wgEncodeAwgTfbsSydhMcf10aesPol2TamUniPk/train.data
+13860	13941	0.994190
+wgEncodeAwgTfbsSydhK562JundIggrabUniPk/train.data
+31391	31362	1.000925
+wgEncodeAwgTfbsBroadHuvecEzh239875UniPk/train.data
+3397	3391	1.001769
+wgEncodeAwgTfbsHaibH1hescFosl1sc183V0416102UniPk/train.data
+875	883	0.990940
+wgEncodeAwgTfbsSydhK562Stat1Ifng6hUniPk/train.data
+1834	1833	1.000546
+wgEncodeAwgTfbsSydhHepg2Pol2ForsklnUniPk/train.data
+17963	17853	1.006161
+wgEncodeAwgTfbsUchicagoK562Ehdac8UniPk/train.data
+1376	1358	1.013255
+wgEncodeAwgTfbsBroadNhaEzh239875UniPk/train.data
+4246	4208	1.009030
+wgEncodeAwgTfbsUchicagoK562EjunbUniPk/train.data
+9664	9609	1.005724
+wgEncodeAwgTfbsUwHacCtcfUniPk/train.data
+35376	35294	1.002323
+wgEncodeAwgTfbsHaibA549P300V0422111Etoh02UniPk/train.data
+13701	13740	0.997162
+wgEncodeAwgTfbsUtaHepg2Pol2UniPk/train.data
+11794	11878	0.992928
+wgEncodeAwgTfbsSydhHepg2Rad21IggrabUniPk/train.data
+28926	29053	0.995629
+wgEncodeAwgTfbsHaibH1hescTcf12Pcr1xUniPk/train.data
+6172	6186	0.997737
+wgEncodeAwgTfbsSydhGm12878NfkbTnfaIggrabUniPk/train.data
+13345	13355	0.999251
+wgEncodeAwgTfbsHaibHepg2Mybl2sc81192V0422111UniPk/train.data
+14110	14110	1.000000
+wgEncodeAwgTfbsUchicagoK562EjundUniPk/train.data
+20954	20817	1.006581
+wgEncodeAwgTfbsSydhK562CtcfbIggrabUniPk/train.data
+42244	42071	1.004112
+wgEncodeAwgTfbsHaibGm12878GabpPcr2xUniPk/train.data
+5106	5105	1.000196
+wgEncodeAwgTfbsHaibHepg2Foxa2sc6554V0416101UniPk/train.data
+32067	32102	0.998910
+wgEncodeAwgTfbsBroadK562Rbbp5a300109aUniPk/train.data
+10943	11001	0.994728
+wgEncodeAwgTfbsSydhK562CmycIfna30UniPk/train.data
+6111	6069	1.006920
+wgEncodeAwgTfbsHaibK562Cbx3sc101004V0422111UniPk/train.data
+16309	16419	0.993300
+wgEncodeAwgTfbsHaibHct116Zbtb33V0416101UniPk/train.data
+3464	3382	1.024246
+wgEncodeAwgTfbsUwWerirb1CtcfUniPk/train.data
+39036	39138	0.997394
+wgEncodeAwgTfbsUtaH1hescCmycUniPk/train.data
+971	968	1.003099
+wgEncodeAwgTfbsUtaH1hescPol2UniPk/train.data
+10104	10078	1.002580
+wgEncodeAwgTfbsHaibHepg2Foxa1sc6553V0416101UniPk/train.data
+40132	40092	1.000998
+wgEncodeAwgTfbsHaibH1hescRad21V0416102UniPk/train.data
+58484	58538	0.999078
+wgEncodeAwgTfbsHaibGm12878Ebf1sc137065Pcr1xUniPk/train.data
+28234	28246	0.999575
+wgEncodeAwgTfbsHaibHepg2Usf1Pcr1xUniPk/train.data
+17234	17207	1.001569
+wgEncodeAwgTfbsUwHmecCtcfUniPk/train.data
+43207	43132	1.001739
+wgEncodeAwgTfbsSydhK562Irf1Ifna30UniPk/train.data
+1021	1033	0.988383
+wgEncodeAwgTfbsBroadHsmmEzh239875UniPk/train.data
+1239	1225	1.011429
+wgEncodeAwgTfbsSydhA549Bhlhe40IggrabUniPk/train.data
+2460	2460	1.000000
+wgEncodeAwgTfbsSydhK562Yy1UcdUniPk/train.data
+3812	3826	0.996341
+wgEncodeAwgTfbsHaibHepg2Elf1sc631V0416101UniPk/train.data
+14232	14083	1.010580
+wgEncodeAwgTfbsSydhGm12892Pol2IggmusUniPk/train.data
+17049	17039	1.000587
+wgEncodeAwgTfbsUtaProgfibCtcfUniPk/train.data
+34045	34244	0.994189
+wgEncodeAwgTfbsHaibGm12878Pol24h8Pcr1xUniPk/train.data
+12353	12267	1.007011
+wgEncodeAwgTfbsSydhH1hescGtf2f1IggrabUniPk/train.data
+2803	2822	0.993267
+wgEncodeAwgTfbsSydhK562Stat1Ifna6hUniPk/train.data
+1181	1150	1.026957
+wgEncodeAwgTfbsSydhK562Stat2Ifna30UniPk/train.data
+2376	2427	0.978986
+wgEncodeAwgTfbsUwBjCtcfUniPk/train.data
+34800	34638	1.004677
+wgEncodeAwgTfbsHaibK562Sin3ak20V0416101UniPk/train.data
+9982	10011	0.997103
+wgEncodeAwgTfbsSydhH1hescMaxUcdUniPk/train.data
+8709	8844	0.984735
+wgEncodeAwgTfbsSydhHepg2Hsf1ForsklnUniPk/train.data
+1155	1123	1.028495
+wgEncodeAwgTfbsHaibGm12878Pu1Pcr1xUniPk/train.data
+33406	33410	0.999880
+wgEncodeAwgTfbsSydhH1hescRad21IggrabUniPk/train.data
+42974	43243	0.993779
+wgEncodeAwgTfbsHaibSknshraCtcfV0416102UniPk/train.data
+31328	31316	1.000383
+wgEncodeAwgTfbsSydhK562Rpc155UniPk/train.data
+1009	1016	0.993110
+wgEncodeAwgTfbsSydhHepg2Arid3anb100279IggrabUniPk/train.data
+13997	13862	1.009739
+wgEncodeAwgTfbsSydhGm19099Pol2IggmusUniPk/train.data
+16693	16739	0.997252
+wgEncodeAwgTfbsHaibA549GrPcr1xDex50nmUniPk/train.data
+18173	18227	0.997037
+wgEncodeAwgTfbsSydhHuvecGata2UcdUniPk/train.data
+21339	21342	0.999859
+wgEncodeAwgTfbsHaibK562Bcl3Pcr1xUniPk/train.data
+1260	1277	0.986688
+wgEncodeAwgTfbsSydhHelas3Stat1Ifng30UniPk/train.data
+12547	12648	0.992015
+wgEncodeAwgTfbsUwGm12864CtcfUniPk/train.data
+36320	36332	0.999670
+wgEncodeAwgTfbsHaibHepg2Pol24h8V0416102UniPk/train.data
+14668	14634	1.002323
+wgEncodeAwgTfbsSydhHepg2Pol2IggrabUniPk/train.data
+14896	15004	0.992802
+wgEncodeAwgTfbsUwSknshraCtcfUniPk/train.data
+35669	35843	0.995145
+wgEncodeAwgTfbsSydhK562Kap1UcdUniPk/train.data
+4250	4268	0.995783
+wgEncodeAwgTfbsHaibGm12878BatfPcr1xUniPk/train.data
+25237	25345	0.995739
+wgEncodeAwgTfbsBroadK562Phf8a301772aUniPk/train.data
+15624	15704	0.994906
+wgEncodeAwgTfbsHaibK562Zbtb33Pcr1xUniPk/train.data
+2582	2558	1.009382
+wgEncodeAwgTfbsSydhGm12878Ikzf1iknuclaUniPk/train.data
+7092	7109	0.997609
+wgEncodeAwgTfbsHaibGm12878Egr1Pcr2xUniPk/train.data
+12806	12824	0.998596
+wgEncodeAwgTfbsHaibA549Tcf12V0422111Etoh02UniPk/train.data
+15927	15895	1.002013
+wgEncodeAwgTfbsHaibEcc1CtcfcV0416102Dm002p1hUniPk/train.data
+18106	18106	1.000000
+wgEncodeAwgTfbsSydhHelas3Hae2f1UniPk/train.data
+7993	7997	0.999500
+wgEncodeAwgTfbsBroadK562CtcfUniPk/train.data
+40042	40375	0.991752
+wgEncodeAwgTfbsUwCaco2CtcfUniPk/train.data
+36360	36531	0.995319
+wgEncodeAwgTfbsHaibH1hescRxraV0416102UniPk/train.data
+1024	1040	0.984615
+wgEncodeAwgTfbsSydhGm08714Znf274UcdUniPk/train.data
+434	431	1.006961
+wgEncodeAwgTfbsSydhMcf10aesStat3Etoh01UniPk/train.data
+9713	9664	1.005070
+wgEncodeAwgTfbsSydhK562Znf274UcdUniPk/train.data
+237	222	1.067568
+wgEncodeAwgTfbsUwMcf7CtcfUniPk/train.data
+45573	45463	1.002420
+wgEncodeAwgTfbsUtaHuvecCtcfUniPk/train.data
+34008	34131	0.996396
+wgEncodeAwgTfbsHaibA549Usf1V0422111Etoh02UniPk/train.data
+6305	6251	1.008639
+wgEncodeAwgTfbsUtaMcf7Pol2SerumstimUniPk/train.data
+15558	15544	1.000901
+wgEncodeAwgTfbsSydhHelas3CmycUniPk/train.data
+7940	8080	0.982673
+wgEncodeAwgTfbsHaibA549GabpV0422111Etoh02UniPk/train.data
+9203	9112	1.009987
+wgEncodeAwgTfbsBroadK562Hdac6a301341aUniPk/train.data
+884	895	0.987709
+wgEncodeAwgTfbsHaibH1hescSp2V0422111UniPk/train.data
+1915	1915	1.000000
+wgEncodeAwgTfbsUwGm12878CtcfUniPk/train.data
+31069	30942	1.004104
+wgEncodeAwgTfbsSydhGm12878Sin3anb6001263IggmusUniPk/train.data
+8166	8226	0.992706
+wgEncodeAwgTfbsUwHpafCtcfUniPk/train.data
+44107	43915	1.004372
+wgEncodeAwgTfbsHaibK562Ets1V0416101UniPk/train.data
+8410	8490	0.990577
+wgEncodeAwgTfbsUwHepg2CtcfUniPk/train.data
+37922	38113	0.994989
+wgEncodeAwgTfbsUwNhdfneoCtcfUniPk/train.data
+35663	35748	0.997622
+wgEncodeAwgTfbsHaibHepg2P300V0416101UniPk/train.data
+21887	21834	1.002427
+wgEncodeAwgTfbsHaibGm12878Foxm1sc502V0422111UniPk/train.data
+17955	17915	1.002233
+wgEncodeAwgTfbsSydhHelas3E2f6UniPk/train.data
+3758	3722	1.009672
+wgEncodeAwgTfbsSydhA549MaxIggrabUniPk/train.data
+7852	7696	1.020270
+wgEncodeAwgTfbsHaibK562Zbtb7asc34508V0416101UniPk/train.data
+16816	16712	1.006223
+wgEncodeAwgTfbsUwRptecCtcfUniPk/train.data
+45479	45434	1.000990
+wgEncodeAwgTfbsHaibT47dFoxa1sc6553V0416102Dm002p1hUniPk/train.data
+32624	32633	0.999724
+wgEncodeAwgTfbsSydhGm18951Pol2IggmusUniPk/train.data
+15205	15207	0.999868
+wgEncodeAwgTfbsUtaMcf7CmycVehUniPk/train.data
+21756	21780	0.998898
+wgEncodeAwgTfbsSydhHepg2CjunIggrabUniPk/train.data
+10001	10035	0.996612
+wgEncodeAwgTfbsSydhHepg2Mafksc477IggrabUniPk/train.data
+29667	29589	1.002636
+wgEncodeAwgTfbsSydhNt2d1Suz12UcdUniPk/train.data
+2561	2563	0.999220
+wgEncodeAwgTfbsHaibA549Usf1Pcr1xDex100nmUniPk/train.data
+9381	9431	0.994698
+wgEncodeAwgTfbsSydhMcf10aesCfosEtoh01HvdUniPk/train.data
+52706	52847	0.997332
+wgEncodeAwgTfbsSydhHelas3Ini1IggmusUniPk/train.data
+6112	6112	1.000000
+wgEncodeAwgTfbsHaibHepg2JundPcr1xUniPk/train.data
+17095	17047	1.002816
+wgEncodeAwgTfbsHaibK562E2f6V0416102UniPk/train.data
+19029	18966	1.003322
+wgEncodeAwgTfbsHaibGm12878Ets1Pcr1xUniPk/train.data
+3251	3233	1.005568
+wgEncodeAwgTfbsHaibHepg2Mbd4sc271530V0422111UniPk/train.data
+4681	4698	0.996381
+wgEncodeAwgTfbsUtaK562Pol2UniPk/train.data
+14724	14671	1.003613
+wgEncodeAwgTfbsHaibH1hescP300V0416102UniPk/train.data
+7008	7040	0.995455
+wgEncodeAwgTfbsSydhK562MaffIggrabUniPk/train.data
+19521	19543	0.998874
+wgEncodeAwgTfbsHaibPfsk1Sin3ak20V0416101UniPk/train.data
+4710	4718	0.998304
+wgEncodeAwgTfbsHaibGm12878Mef2aPcr1xUniPk/train.data
+13794	13818	0.998263
+wgEncodeAwgTfbsSydhGm12878NfybIggmusUniPk/train.data
+10353	10307	1.004463
+wgEncodeAwgTfbsUwBe2cCtcfUniPk/train.data
+42461	42497	0.999153
+wgEncodeAwgTfbsSydhK562Brf1UniPk/train.data
+176	176	1.000000
+wgEncodeAwgTfbsUwHffCtcfUniPk/train.data
+27050	27156	0.996097
+wgEncodeAwgTfbsSydhK562Bdp1UniPk/train.data
+453	454	0.997797
+wgEncodeAwgTfbsHaibSknshNrsfV0416101UniPk/train.data
+8725	8644	1.009371
+wgEncodeAwgTfbsSydhGm12878Chd2ab68301IggmusUniPk/train.data
+12228	12160	1.005592
+wgEncodeAwgTfbsSydhHelas3Rfx5200401194IggrabUniPk/train.data
+15014	15082	0.995491
+wgEncodeAwgTfbsHaibH1hescTaf7sc101167V0416102UniPk/train.data
+8218	8178	1.004891
+wgEncodeAwgTfbsSydhGm10847Pol2IggmusUniPk/train.data
+7598	7587	1.001450
+wgEncodeAwgTfbsHaibH1hescAtf2sc81188V0422111UniPk/train.data
+4700	4760	0.987395
+wgEncodeAwgTfbsHaibHepg2Cebpbsc150V0416101UniPk/train.data
+14243	14248	0.999649
+wgEncodeAwgTfbsBroadH1hescEzh239875UniPk/train.data
+3602	3620	0.995028
+wgEncodeAwgTfbsSydhGm12878Chd1a301218aIggmusUniPk/train.data
+5219	5275	0.989384
+wgEncodeAwgTfbsHaibHepg2GabpPcr2xUniPk/train.data
+7871	7839	1.004082
+wgEncodeAwgTfbsSydhHelas3Znf274UcdUniPk/train.data
+68	71	0.957746
+wgEncodeAwgTfbsSydhK562CjunIfng6hUniPk/train.data
+5139	5206	0.987130
+wgEncodeAwgTfbsSydhHepg2Hnf4aForsklnUniPk/train.data
+8797	8841	0.995023
+wgEncodeAwgTfbsUwHvmfCtcfUniPk/train.data
+36046	35930	1.003228
+wgEncodeAwgTfbsSydhHelas3Elk4UcdUniPk/train.data
+4574	4590	0.996514
+wgEncodeAwgTfbsHaibHepg2Fosl2V0416101UniPk/train.data
+19899	19779	1.006067
+wgEncodeAwgTfbsUtaMcf7CtcfEstroUniPk/train.data
+51383	51588	0.996026
+wgEncodeAwgTfbsSydhHelas3E2f4UniPk/train.data
+2174	2206	0.985494
+wgEncodeAwgTfbsSydhHepg2Rfx5200401194IggrabUniPk/train.data
+4722	4759	0.992225
+wgEncodeAwgTfbsSydhGm18526Pol2IggmusUniPk/train.data
+12690	12719	0.997720
+wgEncodeAwgTfbsSydhGm12878Pol2IggmusUniPk/train.data
+16919	16901	1.001065
+wgEncodeAwgTfbsSydhGm12878Pol2UniPk/train.data
+8670	8642	1.003240
+wgEncodeAwgTfbsHaibH1hescAtf3V0416102UniPk/train.data
+3784	3782	1.000529
+wgEncodeAwgTfbsSydhHepg2Usf2IggrabUniPk/train.data
+4912	5001	0.982204
+wgEncodeAwgTfbsHaibEcc1GrV0416102Dex100nmUniPk/train.data
+7290	7351	0.991702
+wgEncodeAwgTfbsSydhGm12878Pol3UniPk/train.data
+173	163	1.061350
+wgEncodeAwgTfbsHaibA549Six5V0422111Etoh02UniPk/train.data
+3786	3834	0.987480
+wgEncodeAwgTfbsHaibHepg2Taf1Pcr2xUniPk/train.data
+12702	12667	1.002763
+wgEncodeAwgTfbsSydhK562Irf1Ifng30UniPk/train.data
+8151	8084	1.008288
+wgEncodeAwgTfbsBroadHsmmCtcfUniPk/train.data
+39592	39444	1.003752
+wgEncodeAwgTfbsSydhHelas3Spt20UniPk/train.data
+3226	3215	1.003421
+wgEncodeAwgTfbsBroadDnd41CtcfUniPk/train.data
+38783	38748	1.000903
+wgEncodeAwgTfbsSydhHelas3Pol2s2IggrabUniPk/train.data
+9708	9703	1.000515
+wgEncodeAwgTfbsHaibA549Atf3V0422111Etoh02UniPk/train.data
+5145	5146	0.999806
+wgEncodeAwgTfbsHaibH1hescPol24h8V0416102UniPk/train.data
+15929	15955	0.998370
+wgEncodeAwgTfbsSydhHelas3Zzz3UniPk/train.data
+189	182	1.038462
+wgEncodeAwgTfbsHaibGm12878Bcl11aPcr1xUniPk/train.data
+13960	14003	0.996929
+wgEncodeAwgTfbsSydhK562Gtf2f1ab28179IggrabUniPk/train.data
+2881	2845	1.012654
+wgEncodeAwgTfbsBroadNhlfCtcfUniPk/train.data
+30645	30692	0.998469
+wgEncodeAwgTfbsSydhK562Znf263UcdUniPk/train.data
+2370	2385	0.993711
+wgEncodeAwgTfbsHaibGm12878Sp1Pcr1xUniPk/train.data
+14243	14230	1.000914
+wgEncodeAwgTfbsSydhImr90CtcfbIggrabUniPk/train.data
+35652	35500	1.004282
+wgEncodeAwgTfbsSydhHepg2Irf3IggrabUniPk/train.data
+545	536	1.016791
+wgEncodeAwgTfbsHaibGm12878NrsfPcr1xUniPk/train.data
+5454	5371	1.015453
+wgEncodeAwgTfbsSydhK562Tblr1nb600270IggrabUniPk/train.data
+6642	6697	0.991787
+wgEncodeAwgTfbsHaibK562Trim28sc81411V0422111UniPk/train.data
+9557	9484	1.007697
+wgEncodeAwgTfbsHaibK562Taf7sc101167V0416101UniPk/train.data
+2713	2643	1.026485
+wgEncodeAwgTfbsHaibEcc1Foxa1sc6553V0416102Dm002p1hUniPk/train.data
+4671	4612	1.012793
+wgEncodeAwgTfbsBroadNhaCtcfUniPk/train.data
+29817	29835	0.999397
+wgEncodeAwgTfbsHaibPfsk1NrsfPcr2xUniPk/train.data
+8992	8896	1.010791
+wgEncodeAwgTfbsUtaHepg2CtcfUniPk/train.data
+31765	31758	1.000220
+wgEncodeAwgTfbsBroadK562Hdac2a300705aUniPk/train.data
+4185	4195	0.997616
+wgEncodeAwgTfbsUwHaspCtcfUniPk/train.data
+36083	36069	1.000388
+wgEncodeAwgTfbsUwHl60CtcfUniPk/train.data
+13168	13174	0.999545
+wgEncodeAwgTfbsHaibGm12878Pol2Pcr2xUniPk/train.data
+16970	16937	1.001948
+wgEncodeAwgTfbsHaibHepg2Hdac2sc6296V0416101UniPk/train.data
+14926	14939	0.999130
+wgEncodeAwgTfbsHaibGm12891Taf1Pcr1xUniPk/train.data
+9291	9328	0.996033
+wgEncodeAwgTfbsUwNb4CtcfUniPk/train.data
+29616	29694	0.997373
+wgEncodeAwgTfbsHaibHepg2Cebpdsc636V0416101UniPk/train.data
+9013	9099	0.990548
+wgEncodeAwgTfbsSydhHepg2TbpIggrabUniPk/train.data
+10857	10875	0.998345
+wgEncodeAwgTfbsSydhHct116Pol2UcdUniPk/train.data
+10105	10063	1.004174
+wgEncodeAwgTfbsSydhK562Ini1IggmusUniPk/train.data
+1560	1528	1.020942
+wgEncodeAwgTfbsBroadK562Chd1a301218aUniPk/train.data
+7406	7347	1.008030
+wgEncodeAwgTfbsHaibGm12878Taf1Pcr1xUniPk/train.data
+11154	11151	1.000269
+wgEncodeAwgTfbsSydhGm12878Elk112771IggmusUniPk/train.data
+4420	4370	1.011442
+wgEncodeAwgTfbsSydhK562Znf274m01UcdUniPk/train.data
+1374	1368	1.004386
+wgEncodeAwgTfbsSydhPanc1Tcf7l2UcdUniPk/train.data
+10144	10208	0.993730
+wgEncodeAwgTfbsSydhK562Mafkab50322IggrabUniPk/train.data
+15002	15138	0.991016
+wgEncodeAwgTfbsHaibK562Sp1Pcr1xUniPk/train.data
+5660	5660	1.000000
+wgEncodeAwgTfbsSydhK562Pol2s2UniPk/train.data
+1718	1698	1.011779
+wgEncodeAwgTfbsSydhK562Gata1UcdUniPk/train.data
+3184	3212	0.991283
+wgEncodeAwgTfbsSydhK562Bach1sc14700IggrabUniPk/train.data
+2966	3006	0.986693
+wgEncodeAwgTfbsBroadH1hescRbbp5a300109aUniPk/train.data
+12819	12693	1.009927
+wgEncodeAwgTfbsSydhGm12878Ctcfsc15914c20UniPk/train.data
+42937	42899	1.000886
+wgEncodeAwgTfbsHaibH1hescSin3ak20Pcr1xUniPk/train.data
+7068	7136	0.990471
+wgEncodeAwgTfbsBroadHmecEzh239875UniPk/train.data
+3633	3659	0.992894
+wgEncodeAwgTfbsHaibHepg2Ctcfsc5916V0416101UniPk/train.data
+43407	43287	1.002772
+wgEncodeAwgTfbsHaibPanc1Pol24h8V0416101UniPk/train.data
+8055	8074	0.997647
+wgEncodeAwgTfbsHaibK562Bclaf101388Pcr1xUniPk/train.data
+3507	3459	1.013877
+wgEncodeAwgTfbsHaibGm12878SrfPcr2xUniPk/train.data
+6724	6696	1.004182
+wgEncodeAwgTfbsSydhGm12878Stat3IggmusUniPk/train.data
+5118	5067	1.010065
+wgEncodeAwgTfbsHaibK562Hdac2sc6296V0416102UniPk/train.data
+5288	5251	1.007046
+wgEncodeAwgTfbsSydhHepg2CebpbIggrabUniPk/train.data
+44653	44462	1.004296
+wgEncodeAwgTfbsHaibHelas3NrsfPcr1xUniPk/train.data
+8055	7964	1.011426
+wgEncodeAwgTfbsSydhH1hescNrf1IggrabUniPk/train.data
+3481	3525	0.987518
+wgEncodeAwgTfbsSydhMcf7Tcf7l2UcdUniPk/train.data
+8028	8048	0.997515
+wgEncodeAwgTfbsSydhHelas3Baf170IggmusUniPk/train.data
+2053	2086	0.984180
+wgEncodeAwgTfbsHaibGm12878Six5Pcr1xUniPk/train.data
+3785	3797	0.996840
+wgEncodeAwgTfbsHaibGm12878Usf1Pcr2xUniPk/train.data
+7686	7656	1.003918
+wgEncodeAwgTfbsUtaHepg2CmycUniPk/train.data
+3509	3503	1.001713
+wgEncodeAwgTfbsHaibT47dEralphaaPcr2xGen1hUniPk/train.data
+8298	8236	1.007528
+wgEncodeAwgTfbsUwHcmCtcfUniPk/train.data
+39378	39265	1.002878
+wgEncodeAwgTfbsUwGm12875CtcfUniPk/train.data
+30316	30194	1.004041
+wgEncodeAwgTfbsSydhHelas3Pol2UniPk/train.data
+13491	13608	0.991402
+wgEncodeAwgTfbsSydhImr90Rad21IggrabUniPk/train.data
+29114	29060	1.001858
+wgEncodeAwgTfbsHaibPanc1Sin3ak20V0416101UniPk/train.data
+5690	5599	1.016253
+wgEncodeAwgTfbsUwHmfCtcfUniPk/train.data
+41975	41791	1.004403
+wgEncodeAwgTfbsHaibA549Elf1V0422111Etoh02UniPk/train.data
+6782	6686	1.014358
+wgEncodeAwgTfbsUwHcfaaCtcfUniPk/train.data
+32269	32299	0.999071
+wgEncodeAwgTfbsHaibGm12878Nficsc81335V0422111UniPk/train.data
+22133	22286	0.993135
+wgEncodeAwgTfbsHaibGm12878Pax5c20Pcr1xUniPk/train.data
+20004	19837	1.008419
+wgEncodeAwgTfbsUtaMcf7CmycSerumstimUniPk/train.data
+16540	16442	1.005960
+wgEncodeAwgTfbsBroadOsteoblCtcfUniPk/train.data
+42935	43213	0.993567
+wgEncodeAwgTfbsHaibK562Fosl1sc183V0416101UniPk/train.data
+8782	8787	0.999431
+wgEncodeAwgTfbsHaibPfsk1Foxp2Pcr2xUniPk/train.data
+14348	14280	1.004762
+wgEncodeAwgTfbsSydhHepg2Brca1a300IggrabUniPk/train.data
+1195	1165	1.025751
+wgEncodeAwgTfbsSydhHepg2ErraForsklnUniPk/train.data
+947	925	1.023784
+wgEncodeAwgTfbsHaibH1hescSp4v20V0422111UniPk/train.data
+4601	4528	1.016122
+wgEncodeAwgTfbsUwAg10803CtcfUniPk/train.data
+37036	36893	1.003876
+wgEncodeAwgTfbsSydhK562CmycIfng30UniPk/train.data
+24333	24347	0.999425
+wgEncodeAwgTfbsUwNhekCtcfUniPk/train.data
+32812	32772	1.001221
+wgEncodeAwgTfbsHaibPfsk1Taf1V0416101UniPk/train.data
+4584	4545	1.008581
+wgEncodeAwgTfbsHaibGm12878Bcl3V0416101UniPk/train.data
+12150	12110	1.003303
+wgEncodeAwgTfbsHaibSknmcFoxp2Pcr2xUniPk/train.data
+11605	11615	0.999139
+wgEncodeAwgTfbsUchicagoK562Egata2UniPk/train.data
+9008	8996	1.001334
+wgEncodeAwgTfbsSydhGm18505Pol2IggmusUniPk/train.data
+16738	16727	1.000658
+wgEncodeAwgTfbsSydhMcf10aesCmycEtoh01HvdUniPk/train.data
+27641	27560	1.002939
+wgEncodeAwgTfbsHaibGm12891Yy1sc281V0416101UniPk/train.data
+10639	10642	0.999718
+wgEncodeAwgTfbsSydhHelas3P300sc584sc584IggrabUniPk/train.data
+20156	20106	1.002487
+wgEncodeAwgTfbsHaibK562Atf3V0416101UniPk/train.data
+12607	12538	1.005503
+wgEncodeAwgTfbsHaibHepg2NrsfPcr2xUniPk/train.data
+4773	4758	1.003153
+wgEncodeAwgTfbsHaibK562CtcfcPcr1xUniPk/train.data
+35514	35351	1.004611
+wgEncodeAwgTfbsUtaHuvecCmycUniPk/train.data
+4066	4084	0.995593
+wgEncodeAwgTfbsBroadNhlfEzh239875UniPk/train.data
+5476	5508	0.994190
+wgEncodeAwgTfbsSydhK562Ubfsc13125IggmusUniPk/train.data
+4818	4684	1.028608
+wgEncodeAwgTfbsHaibA549Ctcfsc5916Pcr1xEtoh02UniPk/train.data
+29398	29605	0.993008
+wgEncodeAwgTfbsHaibHelas3Pol2Pcr1xUniPk/train.data
+17807	17765	1.002364
+wgEncodeAwgTfbsUtaMcf7CmycEstroUniPk/train.data
+7978	7969	1.001129
+wgEncodeAwgTfbsSydhK562Stat2Ifna6hUniPk/train.data
+1514	1498	1.010681
+wgEncodeAwgTfbsUwHelas3CtcfUniPk/train.data
+29683	29715	0.998923
+wgEncodeAwgTfbsHaibSknshSin3ak20V0416101UniPk/train.data
+12290	12254	1.002938
+wgEncodeAwgTfbsHaibSknshraRad21V0416102UniPk/train.data
+48261	48415	0.996819
+wgEncodeAwgTfbsBroadNhekEzh239875UniPk/train.data
+5927	6004	0.987175
+wgEncodeAwgTfbsUwGm12872CtcfUniPk/train.data
+36445	36710	0.992781
+wgEncodeAwgTfbsUtaGm12892CtcfUniPk/train.data
+37595	37366	1.006129
+wgEncodeAwgTfbsHaibH1hescTead4sc101184V0422111UniPk/train.data
+15632	15601	1.001987
+wgEncodeAwgTfbsUwGm12874CtcfUniPk/train.data
+29203	29121	1.002816
+wgEncodeAwgTfbsSydhK562CmycIfna6hUniPk/train.data
+8362	8278	1.010147
+wgEncodeAwgTfbsSydhH1hescCebpbIggrabUniPk/train.data
+12294	12178	1.009525
+wgEncodeAwgTfbsUtaHuvecPol2UniPk/train.data
+13411	13494	0.993849
+wgEncodeAwgTfbsSydhHepg2Tcf7l2UcdUniPk/train.data
+2146	2143	1.001400
+wgEncodeAwgTfbsUtaGlioblaCtcfUniPk/train.data
+48838	48538	1.006181
+wgEncodeAwgTfbsUwHct116CtcfUniPk/train.data
+39050	39102	0.998670
+wgEncodeAwgTfbsHaibHepg2Tcf12Pcr1xUniPk/train.data
+1617	1667	0.970006
+wgEncodeAwgTfbsUtaGm19239CtcfUniPk/train.data
+31957	32174	0.993255
+wgEncodeAwgTfbsSydhK562CebpbIggrabUniPk/train.data
+30269	30147	1.004047
+wgEncodeAwgTfbsHaibHepg2Nficsc81335V0422111UniPk/train.data
+12573	12612	0.996908
+wgEncodeAwgTfbsSydhHuvecCfosUcdUniPk/train.data
+36461	36500	0.998932
+wgEncodeAwgTfbsSydhGm12878Znf274UniPk/train.data
+181	185	0.978378
+wgEncodeAwgTfbsHaibHepg2Atf3V0416101UniPk/train.data
+2608	2604	1.001536
+wgEncodeAwgTfbsUtaMcf7CtcfSerumstvdUniPk/train.data
+42407	42293	1.002695
+wgEncodeAwgTfbsSydhGm19099NfkbTnfaIggrabUniPk/train.data
+6073	6117	0.992807
+wgEncodeAwgTfbsHaibH1hescGabpPcr1xUniPk/train.data
+4490	4478	1.002680
+wgEncodeAwgTfbsHaibK562SrfV0416101UniPk/train.data
+3725	3689	1.009759
+wgEncodeAwgTfbsSydhHepg2Maffm8194IggrabUniPk/train.data
+29536	29432	1.003534
+wgEncodeAwgTfbsSydhH1hescSuz12UcdUniPk/train.data
+3798	3774	1.006359
+wgEncodeAwgTfbsHaibK562Pol24h8V0416101UniPk/train.data
+17681	17749	0.996169
+wgEncodeAwgTfbsSydhU2osKap1UcdUniPk/train.data
+11224	11230	0.999466
+wgEncodeAwgTfbsHaibGm12878Cebpbsc150V0422111UniPk/train.data
+4527	4594	0.985416
+wgEncodeAwgTfbsSydhPbdeGata1UcdUniPk/train.data
+18440	18452	0.999350
+wgEncodeAwgTfbsBroadHmecCtcfUniPk/train.data
+30852	30949	0.996866
+wgEncodeAwgTfbsSydhGm12878TbpIggmusUniPk/train.data
+11684	11594	1.007763
+wgEncodeAwgTfbsSydhHelas3NfyaIggrabUniPk/train.data
+4645	4609	1.007811
+wgEncodeAwgTfbsSydhHelas3Corestsc30189IggrabUniPk/train.data
+12771	12825	0.995789
+wgEncodeAwgTfbsHaibK562Mef2aV0416101UniPk/train.data
+4417	4437	0.995492
+wgEncodeAwgTfbsHaibH1hescNrsfV0416102UniPk/train.data
+10430	10376	1.005204
+wgEncodeAwgTfbsBroadH1hescCtcfUniPk/train.data
+51646	51528	1.002290
+wgEncodeAwgTfbsHaibA549Zbtb33V0422111Etoh02UniPk/train.data
+5575	5538	1.006681
+wgEncodeAwgTfbsUwAg09319CtcfUniPk/train.data
+38427	38499	0.998130
+wgEncodeAwgTfbsHaibGm12878Pbx3Pcr1xUniPk/train.data
+7756	7802	0.994104
+wgEncodeAwgTfbsHaibH1hescSrfPcr1xUniPk/train.data
+4008	4001	1.001750
+wgEncodeAwgTfbsSydhImr90MafkIggrabUniPk/train.data
+31577	31565	1.000380
+wgEncodeAwgTfbsSydhK562NfybUniPk/train.data
+7878	7771	1.013769
+wgEncodeAwgTfbsSydhA549Rad21IggrabUniPk/train.data
+19100	19016	1.004417
+wgEncodeAwgTfbsHaibHelas3Taf1Pcr1xUniPk/train.data
+12465	12471	0.999519
+wgEncodeAwgTfbsUtaMcf7Pol2UniPk/train.data
+12550	12590	0.996823
+wgEncodeAwgTfbsSydhHelas3Nrf1IggmusUniPk/train.data
+2260	2244	1.007130
+wgEncodeAwgTfbsSydhMcf7Znf217UcdUniPk/train.data
+7834	7873	0.995046
+wgEncodeAwgTfbsSydhHepg2MaxIggrabUniPk/train.data
+9382	9392	0.998935
+wgEncodeAwgTfbsSydhHelas3NfybIggrabUniPk/train.data
+5573	5502	1.012904
+wgEncodeAwgTfbsSydhK562CjunIfng30UniPk/train.data
+6759	6719	1.005953
+wgEncodeAwgTfbsSydhK562Pol2s2IggrabUniPk/train.data
+4035	4025	1.002484
+wgEncodeAwgTfbsHaibHepg2Hnf4asc8987V0416101UniPk/train.data
+16370	16396	0.998414
+wgEncodeAwgTfbsSydhHelas3CfosUniPk/train.data
+7251	7243	1.001105
+wgEncodeAwgTfbsSydhGm12878Smc3ab9263IggmusUniPk/train.data
+23622	23605	1.000720
+wgEncodeAwgTfbsHaibSknshraUsf1sc8983V0416102UniPk/train.data
+15306	15377	0.995383
+wgEncodeAwgTfbsHaibK562Thap1sc98174V0416101UniPk/train.data
+2776	2718	1.021339
+wgEncodeAwgTfbsHaibSknshraP300V0416102UniPk/train.data
+36487	36599	0.996940
+wgEncodeAwgTfbsUwHrpeCtcfUniPk/train.data
+41259	41161	1.002381
+wgEncodeAwgTfbsHaibU87Pol24h8V0416101UniPk/train.data
+17484	17628	0.991831
+wgEncodeAwgTfbsSydhHepg2Pgc1aForsklnUniPk/train.data
+1027	1057	0.971618
+wgEncodeAwgTfbsUtaMcf7CtcfUniPk/train.data
+45057	44992	1.001445
+wgEncodeAwgTfbsSydhHelas3Elk112771IggrabUniPk/train.data
+3784	3728	1.015021
+wgEncodeAwgTfbsSydhHelas3Ap2gammaUniPk/train.data
+19807	19778	1.001466
+wgEncodeAwgTfbsSydhGm12878Tr4UniPk/train.data
+981	1006	0.975149
