@@ -31,7 +31,7 @@ class BaseModel:
         # 设置模型结构等保存路径
         self.architecture_path = self.save_dir + "/" + self.__class__.__name__ + '_architecture.json'
         self.weight_path = self.save_dir + "/" + self.__class__.__name__ + '_weight.h5'
-        self.history_path = self.save_dir + "/" + self.__class__.__name__ + '_history.txt'
+        self.history_path = self.save_dir + "/" + self.__class__.__name__ + '_history.json'
         self.log_path = self.save_dir + "/" + self.__class__.__name__ + "_log.txt"
 
         # 保存日志到文件
@@ -110,7 +110,8 @@ class BaseModel:
             x_train, y_train,
             batch_size=train_params['batch_size'],
             epochs=train_params['epochs'],
-            validation_data=(x_val, y_val),
+            validation_split=0.1,
+            #validation_data=(x_val, y_val),
             callbacks=train_callbacks)
         self.model.evaluate(x_val, y_val)
 

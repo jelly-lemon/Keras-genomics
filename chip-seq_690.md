@@ -2,7 +2,7 @@
 
 正样本数量：10231780 (1 kw)
 
-正样本数量(标签为1)   负样本数量(标签为0)   正/负
+正样本数量(标签为1)   负样本数量(标签为0)   比例(正/负)
 wgEncodeAwgTfbsSydhGm12878WhipIggmusUniPk/train.data
 11046	11126	0.992810
 wgEncodeAwgTfbsHaibGm12878Nfatc1sc17834V0422111UniPk/train.data

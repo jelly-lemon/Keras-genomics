@@ -1,6 +1,6 @@
 import argparse
 import DataHelper
-from models.ModelHelper import *
+from ModelHelper import *
 
 
 def parse_args():

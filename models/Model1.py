@@ -4,10 +4,11 @@
 
 from tensorflow_core.python.keras import Model
 from tensorflow_core.python.keras.callbacks import ModelCheckpoint
-from tensorflow_core.python.keras.optimizer_v2.adam import Adam
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Conv2D, GlobalMaxPooling2D, BatchNormalization
+from tensorflow_core.python.keras.optimizer_v2.adadelta import Adadelta
+from tensorflow_core.python.keras.optimizer_v2.adam import Adam
 
 from models.BaseModel import BaseModel
 
@@ -48,7 +49,7 @@ class Model1(BaseModel):
         # 构建模型
         #
         model = Sequential()
-        model.add(Conv2D(128, (1, 24), padding='same', input_shape=model_params["input_shape"],
+        model.add(Conv2D(16, (1, 24), padding='same', input_shape=model_params["input_shape"],
                          activation='relu'))  # input_shape 不包含 batch_size
         model.add(GlobalMaxPooling2D())
         model.add(Dense(32, activation='relu'))

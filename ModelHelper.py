@@ -37,7 +37,7 @@ def get_base_model(model_name:str, save_dir:str) -> BaseModel:
     """
     if model_name == "EasyModel":
         return EasyModel(save_dir)
-    elif model_name == "Model1_过拟合":
+    elif model_name == "Model1":
         return Model1(save_dir)
     else:
         raise Exception("No model named: " + model_name)
