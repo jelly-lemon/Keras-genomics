@@ -36,10 +36,13 @@ class Model1(BaseModel):
         """
         # 默认参数
         model_params = {
-            "input_shape": (4, 1, 101),
+            #"input_shape": (4, 1, 101),
+            # "class_num": 2,
+            "input_shape": (28, 28, 1),
+            "class_num": 10,
             "activation": "softmax",
             "loss_func": "categorical_crossentropy",
-            "optimizer": Adam()
+            "optimizer": Adam(),
         }
 
         # 超参数
@@ -54,7 +57,7 @@ class Model1(BaseModel):
         model.add(GlobalMaxPooling2D())
         model.add(Dense(32, activation='relu'))
         model.add(BatchNormalization())
-        model.add(Dense(2))
+        model.add(Dense(model_params["class_num"]))
         model.add(Activation(activation=model_params["activation"]))
 
         #

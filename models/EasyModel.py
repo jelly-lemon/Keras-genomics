@@ -5,7 +5,7 @@
 from tensorflow_core.python.keras import Model
 from tensorflow_core.python.keras.optimizer_v2.adam import Adam
 
-from common_defs import *
+#from common_defs import *
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Conv2D, GlobalMaxPooling2D
 
