@@ -1,43 +1,28 @@
-import argparse
+from tensorflow_core.python.keras import Model
+from tensorflow_core.python.keras.layers import *
+from tensorflow_core.python.keras.utils.np_utils import to_categorical
+import numpy as np
 
-from tensorflow_core.python.keras.api import keras
+# IMDB
 
-import DataHelper
-from ModelHelper import *
+# DNA
+with np.load("./row_data/DNA.npz") as f:
+    x_train, y_train = f["x_train"], f["y_train"]
+    y_train = to_categorical(y_train, 2)
+inputs = Input(shape=(101,))
 
+# 创建模型
+embed_1 = Embedding(input_dim=4, output_dim=20)(inputs)
+conv1D_1 = Conv1D(16, 24, activation='relu')(embed_1)
+pool1D_1 = MaxPool1D(2)(conv1D_1)
+flatten_1 = Flatten()(pool1D_1)
+dense_1 = Dense(16, activation="relu")(flatten_1)
+drop_1 = Dropout(0.2)(dense_1)
+dense_2 = Dense(8, activation="relu")(dense_1)
+drop_2 = Dropout(0.2)(dense_2)
+outputs = Dense(2, activation="sigmoid")(drop_2)
+model = Model(inputs=inputs, outputs=outputs)
+model.summary()
+model.compile(loss="binary_crossentropy", optimizer="Adam", metrics=["acc"])
 
-def parse_args():
-    """
-    解析命令行参数
-    """
-    parser = argparse.ArgumentParser(description="train model")
-    parser.add_argument("-m", "--model_name", dest="model_name", help="Model name")
-
-    return parser.parse_args()
-
-
-if __name__ == "__main__":
-    # 解析命令行参数
-    args = parse_args()
-    print(args)
-    output_dir = "./saved_models"
-    data_dir = "./batch_files"
-
-    # 加载模型
-    if args.model_name is None:
-        raise Exception("please input model name")
-    baseModel = get_base_model(args.model_name, output_dir)
-
-    # mnist
-    (x_train, y_train), (x_val, y_val) = keras.datasets.mnist.load_data()
-    y_train = keras.utils.to_categorical(y_train)
-    y_val = keras.utils.to_categorical(y_val)
-    x_train = x_train.reshape(60000, 28, 28, 1).astype("float32") / 255
-    x_val = x_val.reshape(10000, 28, 28, 1).astype("float32") / 255
-
-    # 加载数据
-    # x_train, y_train = DataHelper.read_data(data_dir + "/train.h5.batch")
-    # x_val, y_val = DataHelper.read_data(data_dir + "/valid.h5.batch")
-
-    # 训练
-    baseModel.train(x_train, y_train, x_val, y_val)
+model.fit(x_train, y_train, batch_size=64, epochs=10, validation_split=0.2)
