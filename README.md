@@ -26,7 +26,7 @@ Bioinformatics, 32(12):i121-i127. doi: 10.1093/bioinformatics/btw255.
 >chr5:114910510-114910610_shuf 	GACC...GAGT 0
 ```
 
-negative set:
+数据集太大了，没有上传。
 
 # 运行环境
 win 10
